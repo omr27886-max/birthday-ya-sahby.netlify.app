@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>كل سنة وأنت طيب يا صاحبي 🎉</title>
+  <title>كل سنة وأنت طيب يا فوزي 🔥</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -28,9 +28,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Cairo', sans-serif;
@@ -45,7 +43,6 @@
       line-height: 1.7;
     }
 
-    /* Confetti Canvas */
     #confetti-canvas {
       position: fixed;
       inset: 0;
@@ -55,7 +52,6 @@
       z-index: 999;
     }
 
-    /* Intro Gift Screen */
     #intro-overlay {
       position: fixed;
       inset: 0;
@@ -187,14 +183,8 @@
       border-radius: 999px;
       cursor: pointer;
       box-shadow: 0 10px 28px rgba(245, 158, 11, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-open:active {
-      transform: scale(0.96);
-    }
-
-    /* Top Floating Bar */
     .top-bar {
       position: fixed;
       top: 14px;
@@ -223,25 +213,14 @@
       align-items: center;
       gap: 7px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-      transition: transform 0.2s, border-color 0.2s;
     }
 
-    .pill-btn:hover {
-      border-color: var(--gold);
-    }
-
-    .pill-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* Main Container */
     .container {
       max-width: 780px;
       margin: 0 auto;
       padding: 84px 18px 70px;
     }
 
-    /* Hero Section */
     .hero {
       text-align: center;
       padding: 24px 12px 36px;
@@ -249,8 +228,8 @@
 
     .photo-ring-wrap {
       position: relative;
-      width: 168px;
-      height: 168px;
+      width: 176px;
+      height: 176px;
       margin: 0 auto 24px;
       display: flex;
       align-items: center;
@@ -271,8 +250,8 @@
 
     .photo-inner {
       position: relative;
-      width: 156px;
-      height: 156px;
+      width: 164px;
+      height: 164px;
       border-radius: 50%;
       background: #131b2e;
       border: 4px solid var(--bg-dark);
@@ -288,7 +267,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
+      object-position: top center;
     }
 
     .badge-age {
@@ -304,9 +283,9 @@
     }
 
     .hero h1 {
-      font-size: clamp(1.9rem, 6vw, 3rem);
+      font-size: clamp(1.85rem, 6vw, 2.9rem);
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.3;
       margin-bottom: 12px;
       background: linear-gradient(135deg, #ffffff 25%, #fcd34d 70%, #f59e0b 100%);
       -webkit-background-clip: text;
@@ -320,7 +299,6 @@
       margin: 0 auto;
     }
 
-    /* Section Card */
     .card {
       background: var(--bg-card);
       backdrop-filter: blur(14px);
@@ -341,11 +319,7 @@
       gap: 10px;
     }
 
-    /* Interactive Cake */
-    .cake-area {
-      text-align: center;
-      padding: 16px 0 6px;
-    }
+    .cake-area { text-align: center; padding: 16px 0 6px; }
 
     .cake-wrapper {
       position: relative;
@@ -405,9 +379,7 @@
       pointer-events: none;
     }
 
-    .candle.blown .smoke {
-      animation: smokeRise 1.2s ease-out forwards;
-    }
+    .candle.blown .smoke { animation: smokeRise 1.2s ease-out forwards; }
 
     @keyframes flicker {
       from { transform: translateX(-50%) scale(0.94) rotate(-2deg); }
@@ -426,7 +398,6 @@
       border-radius: 16px 16px 6px 6px;
       position: relative;
       z-index: 2;
-      box-shadow: inset 0 -6px 0 rgba(219, 39, 119, 0.25);
     }
 
     .cake-bottom {
@@ -468,11 +439,6 @@
       cursor: pointer;
       margin-top: 8px;
       box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
-      transition: transform 0.2s;
-    }
-
-    .btn-action:active {
-      transform: scale(0.95);
     }
 
     #wish-status {
@@ -482,19 +448,17 @@
       min-height: 26px;
     }
 
-    /* Friendship Letter */
     .letter-box {
       background: rgba(15, 23, 42, 0.65);
       border-right: 4px solid var(--gold);
       border-radius: 14px;
       padding: 20px;
-      font-size: 1.06rem;
+      font-size: 1.08rem;
       line-height: 1.95;
       color: #e2e8f0;
       white-space: pre-line;
     }
 
-    /* Memories Flip Grid */
     .memories-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -515,9 +479,7 @@
       transform-style: preserve-3d;
     }
 
-    .flip-card.flipped .flip-inner {
-      transform: rotateY(180deg);
-    }
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
 
     .flip-front, .flip-back {
       position: absolute;
@@ -537,21 +499,9 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .flip-front .emoji {
-      font-size: 2.3rem;
-      margin-bottom: 8px;
-    }
-
-    .flip-front h3 {
-      font-size: 1.05rem;
-      color: var(--gold-light);
-    }
-
-    .flip-front span {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
+    .flip-front .emoji { font-size: 2.3rem; margin-bottom: 8px; }
+    .flip-front h3 { font-size: 1.05rem; color: var(--gold-light); }
+    .flip-front span { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
 
     .flip-back {
       background: linear-gradient(135deg, #1e3a8a, #0f172a);
@@ -562,7 +512,6 @@
       line-height: 1.65;
     }
 
-    /* Scratch Card */
     .scratch-container {
       position: relative;
       width: 100%;
@@ -596,166 +545,6 @@
       touch-action: none;
     }
 
-    /* Customization Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-    }
-
-    .modal-box {
-      background: #111827;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 22px;
-      width: 100%;
-      max-width: 540px;
-      max-height: 88vh;
-      overflow-y: auto;
-      padding: 22px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 12px;
-    }
-
-    .modal-header h2 {
-      font-size: 1.2rem;
-      color: var(--gold-light);
-    }
-
-    .close-modal {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: #fff;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #cbd5e1;
-      margin-bottom: 6px;
-    }
-
-    .form-control {
-      width: 100%;
-      background: #1f2937;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 12px;
-      padding: 10px 14px;
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    textarea.form-control {
-      min-height: 95px;
-      resize: vertical;
-    }
-
-    .file-upload-box {
-      background: rgba(31, 41, 55, 0.7);
-      border: 1px dashed rgba(245, 158, 11, 0.45);
-      border-radius: 14px;
-      padding: 12px;
-      text-align: center;
-    }
-
-    .file-btn {
-      display: inline-block;
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--gold-light);
-      border: 1px solid var(--gold);
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .file-status {
-      font-size: 0.82rem;
-      color: var(--emerald);
-      margin-top: 6px;
-    }
-
-    .export-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-export {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: none;
-      font-family: inherit;
-      font-size: 0.96rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: transform 0.15s;
-    }
-
-    .btn-export:active {
-      transform: scale(0.98);
-    }
-
-    .btn-download {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: #fff;
-    }
-
-    .btn-share {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
-      color: #fff;
-    }
-
-    .btn-copy {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #fff;
-    }
-
-    #export-feedback {
-      text-align: center;
-      font-size: 0.86rem;
-      color: var(--gold-light);
-      margin-top: 8px;
-      min-height: 22px;
-    }
-
     footer {
       text-align: center;
       color: var(--text-muted);
@@ -768,7 +557,7 @@
 
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Intro Gift Screen -->
+  <!-- شاشة المفاجأة -->
   <div id="intro-overlay">
     <div class="gift-stage" id="gift-stage" onclick="openSurprise()">
       <div class="gift-glow"></div>
@@ -778,42 +567,38 @@
         </div>
       </div>
     </div>
-    <h2 class="intro-title">مفاجأة ليك يا صاحبي 🎁</h2>
+    <h2 class="intro-title">مفاجأة ليك يا فوزي 🎁</h2>
     <p class="intro-sub">النهاردة مش يوم عادي.. اضغط على الهدية وافتحها</p>
     <button class="btn-open" onclick="openSurprise()">اضغط لفتح المفاجأة ✨</button>
   </div>
 
-  <!-- Top Controls -->
+  <!-- زر الصوت -->
   <div class="top-bar">
     <button class="pill-btn" id="music-toggle-btn" onclick="toggleMusic()">
       <span id="music-icon">🔇</span>
       <span id="music-label">تشغيل الأغنية</span>
     </button>
-    <button class="pill-btn" onclick="openSettings()">
-      <span>⚙️</span>
-      <span>تعديل وحفظ</span>
-    </button>
   </div>
 
-  <!-- Hidden Custom Audio -->
-  <audio id="bg-audio" loop preload="auto"></audio>
+  <!-- ملف الأغنية (ارفع الأغنية في نفس المجلد على GitHub باسم song.mp3) -->
+  <audio id="bg-audio" src="song.mp3" loop preload="auto"></audio>
 
-  <!-- Main Content -->
   <main class="container">
     <section class="hero">
       <div class="photo-ring-wrap">
         <div class="photo-ring"></div>
         <div class="photo-inner">
-          <span id="default-avatar">👑</span>
-          <img id="friend-photo" alt="صورة صاحبي" />
+          <!-- ارفع الصورة في نفس المجلد على GitHub باسم fawzy.jpg -->
+          <img id="friend-photo" src="fawzy.jpg" alt="فوزي" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='block';" />
+          <span id="fallback-icon" style="display:none;">👑</span>
         </div>
       </div>
-      <div class="badge-age" id="display-badge">🎂 أسطورة جديدة بتكبر سنة</div>
-      <h1 id="display-title">كل سنة وأنت طيب يا صاحبي</h1>
-      <p class="tagline" id="display-subtitle">وجودك في حياتي نعمة كبيرة.. عقبال مليون سنة سعادة ونجاح وضحك من القلب</p>
+      <div class="badge-age">🎂 أسطورة جديدة بتكبر سنة</div>
+      <h1>كل سنة وأنت طيب يا فوزي يا أبضن شخص فحياتي 🔥</h1>
+      <p class="tagline">وجودك في حياتي نعمة كبيرة.. عقبال مليون سنة سعادة ونجاح وضحك من القلب</p>
     </section>
 
-    <!-- Cake Section -->
+    <!-- التورتة -->
     <section class="card cake-area">
       <h2 class="section-title" style="justify-content: center;">🕯️ اتمنى أمنية واطفي الشمع</h2>
       <p style="color: var(--text-muted); font-size: 0.92rem;">اضغط على كل شمعة أو دوس على الزرار اللي تحت</p>
@@ -827,20 +612,18 @@
         <div class="cake-bottom"></div>
         <div class="cake-plate"></div>
       </div>
-      <button class="btn-action" id="blow-btn" onclick="blowAllCandles()">انفخ الشمع 💨</button>
+      <button class="btn-action" onclick="blowAllCandles()">انفخ الشمع 💨</button>
       <div id="wish-status"></div>
     </section>
 
-    <!-- Message Section -->
+    <!-- الرسالة -->
     <section class="card">
       <h2 class="section-title">💌 رسالة من القلب لأخويا</h2>
-      <div class="letter-box" id="display-message">يا صاحبي وأخويا اللي مجبتوش أمي..
-كل سنة وأنت طيب وبألف خير وصحة وسعادة.
-السنين بتعدي والمواقف بتثبت إنك أجدع وأنظف إنسان عرفته في حياتي.
-ربنا يحققلك كل أحلامك ويكتبلك الخير في كل خطوة جاية، ونفضل دايماً في ضهر بعض على الحلوة والمرة!</div>
+      <div class="letter-box">بتمنالك سنة جديدة مليانة نجاح وإنجازات وتحقق فيها كل طموحاتك وأحلامك.. ودايماً من نجاح لنجاح يا بطل! 🚀✨
+حبيب دين امي</div>
     </section>
 
-    <!-- Memories Section -->
+    <!-- الذكريات -->
     <section class="card">
       <h2 class="section-title">📸 مواقف وذكريات متتنسيش</h2>
       <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">اضغط على كل كارت عشان تقلبه 👇</p>
@@ -852,7 +635,7 @@
               <h3>الضحك الهستيري</h3>
               <span>اضغط هنا</span>
             </div>
-            <div class="flip-back" id="mem-1">أكتر حد بنضحك معاه من غير سبب لحد ما عنينا تدمع، وأبسط قعدة معاك بتقلب أحلى يوم.</div>
+            <div class="flip-back">أكتر حد بنضحك معاه من غير سبب لحد ما عنينا تدمع، وأبسط قعدة معاك بتقلب أحلى يوم.</div>
           </div>
         </div>
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
@@ -862,7 +645,7 @@
               <h3>وقت الجد والشدة</h3>
               <span>اضغط هنا</span>
             </div>
-            <div class="flip-back" id="mem-2">في أي موقف صعب بلاقيك أول واحد واقف في ضهري قبل ما حتى أطلب منك.</div>
+            <div class="flip-back">في أي موقف صعب بلاقيك أول واحد واقف في ضهري قبل ما حتى أطلب منك.</div>
           </div>
         </div>
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
@@ -872,7 +655,7 @@
               <h3>سهر الليالي والكلام</h3>
               <span>اضغط هنا</span>
             </div>
-            <div class="flip-back" id="mem-3">الفضفضة والخطط اللي بنرسمها للمستقبل وإحنا سهرانين.. كلها جاية وهنحققها سوا.</div>
+            <div class="flip-back">الفضفضة والخطط اللي بنرسمها للمستقبل وإحنا سهرانين.. كلها جاية وهنحققها سوا.</div>
           </div>
         </div>
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
@@ -882,125 +665,39 @@
               <h3>السنة الجديدة ليك</h3>
               <span>اضغط هنا</span>
             </div>
-            <div class="flip-back" id="mem-4">السنة دي هتكون وش السعد عليك في كل حاجة بتتمناها.. تستاهل كل خير يا بطل.</div>
+            <div class="flip-back">السنة دي هتكون وش السعد عليك في كل حاجة بتتمناها.. تستاهل كل خير يا بطل.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Scratch Gift Section -->
+    <!-- كارت الخربشة -->
     <section class="card" style="text-align: center;">
       <h2 class="section-title" style="justify-content: center;">🎟️ كارت هديتك.. اخربش واكسب!</h2>
       <p style="color: var(--text-muted); font-size: 0.9rem;">امسح الطبقة الفضية بصابعك عشان تشوف هديتك</p>
       <div class="scratch-container">
-        <div class="prize-reveal" id="display-prize">🎁 خروجة وعزومة جامدة على حسابي في أي مكان تختاره!</div>
+        <div class="prize-reveal">🎁 خروجة وعزومة جامدة على حسابي في أي مكان تختاره!</div>
         <canvas id="scratch-canvas"></canvas>
       </div>
     </section>
 
     <footer>
-      صُنع بكل حب وأخوة عشانك ❤️
+      صُنع بكل حب وأخوة عشانك يا فوزي ❤️
     </footer>
   </main>
 
-  <!-- Customization & Export Modal -->
-  <div class="modal-backdrop" id="settings-modal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2>⚙️ تخصيص وحفظ الموقع</h2>
-        <button class="close-modal" onclick="closeSettings()">✕</button>
-      </div>
-
-      <div class="form-group">
-        <label>عنوان التهنئة الرئيسي</label>
-        <input type="text" class="form-control" id="input-title" value="كل سنة وأنت طيب يا صاحبي" oninput="applyLiveChanges()" />
-      </div>
-
-      <div class="form-group">
-        <label>عمر صاحبك أو جملة مميزة</label>
-        <input type="text" class="form-control" id="input-badge" value="🎂 أسطورة جديدة بتكبر سنة" oninput="applyLiveChanges()" />
-      </div>
-
-      <div class="form-group">
-        <label>صورة صاحبك 📸</label>
-        <div class="file-upload-box">
-          <label class="file-btn">
-            اختر صورة من جهازك
-            <input type="file" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)" />
-          </label>
-          <div class="file-status" id="photo-status">لم يتم اختيار صورة بعد (اختياري)</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>أغنية عيد الميلاد 🎵 (MP3 / M4A / WAV)</label>
-        <div class="file-upload-box">
-          <label class="file-btn">
-            اختر أغنية من جهازك
-            <input type="file" accept="audio/*" style="display:none" onchange="handleAudioUpload(event)" />
-          </label>
-          <div class="file-status" id="audio-status">يتم حالياً استخدام لحن عيد الميلاد المدمج</div>
-          <audio id="preview-audio" controls style="width:100%; height:36px; margin-top:8px; display:none;"></audio>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>رسالتك لصاحبك 💌</label>
-        <textarea class="form-control" id="input-message" oninput="applyLiveChanges()">يا صاحبي وأخويا اللي مجبتوش أمي..
-كل سنة وأنت طيب وبألف خير وصحة وسعادة.
-السنين بتعدي والمواقف بتثبت إنك أجدع وأنظف إنسان عرفته في حياتي.
-ربنا يحققلك كل أحلامك ويكتبلك الخير في كل خطوة جاية، ونفضل دايماً في ضهر بعض على الحلوة والمرة!</textarea>
-      </div>
-
-      <div class="form-group">
-        <label>نص الهدية داخل كارت الخربشة 🎁</label>
-        <input type="text" class="form-control" id="input-prize" value="🎁 خروجة وعزومة جامدة على حسابي في أي مكان تختاره!" oninput="applyLiveChanges()" />
-      </div>
-
-      <div class="export-actions">
-        <button class="btn-export btn-download" onclick="downloadSiteFile()">📥 تحميل ملف الموقع (index.html)</button>
-        <button class="btn-export btn-share" onclick="shareSiteFile()">📲 مشاركة أو حفظ في الملفات (Share)</button>
-        <button class="btn-export btn-copy" onclick="copySiteCode()">📋 نسخ كود الموقع كاملاً (HTML)</button>
-        <div id="export-feedback"></div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Embedded Media Variables (Preserved during export)
-    let EMBEDDED_PHOTO = "";
-    let EMBEDDED_AUDIO = "";
-
     let isPlaying = false;
     let synthInterval = null;
     let audioCtx = null;
-
     const bgAudio = document.getElementById('bg-audio');
-    const friendPhoto = document.getElementById('friend-photo');
-    const defaultAvatar = document.getElementById('default-avatar');
 
-    // Initialize embedded media if already saved in exported HTML
     window.addEventListener('DOMContentLoaded', () => {
-      if (EMBEDDED_PHOTO) {
-        friendPhoto.src = EMBEDDED_PHOTO;
-        friendPhoto.style.display = 'block';
-        defaultAvatar.style.display = 'none';
-        document.getElementById('photo-status').textContent = '✅ الصورة محفوظة ومُدمجة في الموقع';
-      }
-      if (EMBEDDED_AUDIO) {
-        bgAudio.src = EMBEDDED_AUDIO;
-        const preview = document.getElementById('preview-audio');
-        preview.src = EMBEDDED_AUDIO;
-        preview.style.display = 'block';
-        document.getElementById('audio-status').textContent = '✅ الأغنية محفوظة ومُدمجة في الموقع';
-      }
       initScratchCard();
     });
 
-    // Open Intro Surprise
     function openSurprise() {
-      const stage = document.getElementById('gift-stage');
-      stage.classList.add('opened');
+      document.getElementById('gift-stage').classList.add('opened');
       launchConfetti(140);
       startMusic();
       setTimeout(() => {
@@ -1008,19 +705,14 @@
       }, 650);
     }
 
-    // Music Controller (Custom Audio or Built-in Happy Birthday Melody)
     function startMusic() {
       if (isPlaying) return;
       isPlaying = true;
       updateMusicUI(true);
 
-      if (EMBEDDED_AUDIO || bgAudio.src) {
-        bgAudio.play().catch(() => {
-          playBuiltInMelody();
-        });
-      } else {
+      bgAudio.play().catch(() => {
         playBuiltInMelody();
-      }
+      });
     }
 
     function stopMusic() {
@@ -1034,11 +726,8 @@
     }
 
     function toggleMusic() {
-      if (isPlaying) {
-        stopMusic();
-      } else {
-        startMusic();
-      }
+      if (isPlaying) stopMusic();
+      else startMusic();
     }
 
     function updateMusicUI(playing) {
@@ -1054,14 +743,12 @@
 
         const notes = [
           [261.63, 0.35], [261.63, 0.35], [293.66, 0.7], [261.63, 0.7], [349.23, 0.7], [329.63, 1.2],
-          [261.63, 0.35], [261.63, 0.35], [293.66, 0.7], [261.63, 0.7], [392.00, 0.7], [349.23, 1.2],
-          [261.63, 0.35], [261.63, 0.35], [523.25, 0.7], [440.00, 0.7], [349.23, 0.7], [329.63, 0.7], [293.66, 1.1],
-          [466.16, 0.35], [466.16, 0.35], [440.00, 0.7], [349.23, 0.7], [392.00, 0.7], [349.23, 1.3]
+          [261.63, 0.35], [261.63, 0.35], [293.66, 0.7], [261.63, 0.7], [392.00, 0.7], [349.23, 1.2]
         ];
 
         let idx = 0;
         function step() {
-          if (!isPlaying || EMBEDDED_AUDIO) return;
+          if (!isPlaying) return;
           const [freq, dur] = notes[idx];
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
@@ -1081,7 +768,6 @@
       } catch (e) {}
     }
 
-    // Cake Candles
     function blowCandle(el) {
       if (!el.classList.contains('blown')) {
         el.classList.add('blown');
@@ -1098,14 +784,13 @@
       const remaining = document.querySelectorAll('.candle:not(.blown)').length;
       const status = document.getElementById('wish-status');
       if (remaining === 0) {
-        status.textContent = '🎉 يا رب كل أمنياتك تتحقق السنة دي يا صاحبي!';
+        status.textContent = '🎉 يا رب كل أمنياتك تتحقق السنة دي يا فوزي!';
         launchConfetti(110);
       } else {
         status.textContent = `فاضل ${remaining} شمعة.. كمّل!`;
       }
     }
 
-    // Scratch Card
     function initScratchCard() {
       const canvas = document.getElementById('scratch-canvas');
       const ctx = canvas.getContext('2d');
@@ -1149,169 +834,6 @@
       canvas.addEventListener('touchend', () => { drawing = false; });
     }
 
-    // Settings Modal
-    function openSettings() {
-      document.getElementById('settings-modal').classList.add('active');
-    }
-
-    function closeSettings() {
-      document.getElementById('settings-modal').classList.remove('active');
-    }
-
-    function applyLiveChanges() {
-      document.getElementById('display-title').textContent = document.getElementById('input-title').value;
-      document.getElementById('display-badge').textContent = document.getElementById('input-badge').value;
-      document.getElementById('display-message').textContent = document.getElementById('input-message').value;
-      document.getElementById('display-prize').textContent = document.getElementById('input-prize').value;
-    }
-
-    // Photo Upload with Automatic Compression
-    function handlePhotoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const status = document.getElementById('photo-status');
-      status.textContent = '⏳ جاري تجهيز وضغط الصورة...';
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const maxDim = 650;
-          let w = img.width;
-          let h = img.height;
-          if (w > maxDim || h > maxDim) {
-            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
-            else { w = Math.round((w * maxDim) / h); h = maxDim; }
-          }
-          canvas.width = w;
-          canvas.height = h;
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          EMBEDDED_PHOTO = canvas.toDataURL('image/jpeg', 0.82);
-
-          friendPhoto.src = EMBEDDED_PHOTO;
-          friendPhoto.style.display = 'block';
-          defaultAvatar.style.display = 'none';
-          status.textContent = '✅ تم إضافة الصورة بنجاح!';
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Audio Upload
-    function handleAudioUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const status = document.getElementById('audio-status');
-      status.textContent = '⏳ جاري تحميل الأغنية...';
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        EMBEDDED_AUDIO = e.target.result;
-        bgAudio.src = EMBEDDED_AUDIO;
-
-        const preview = document.getElementById('preview-audio');
-        preview.src = EMBEDDED_AUDIO;
-        preview.style.display = 'block';
-        status.textContent = `✅ تم اختيار: ${file.name}`;
-
-        if (isPlaying) {
-          if (synthInterval) clearTimeout(synthInterval);
-          bgAudio.play().catch(() => {});
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Build Complete Standalone HTML for Export
-    function generateStandaloneHTML() {
-      applyLiveChanges();
-      const clone = document.documentElement.cloneNode(true);
-
-      // Reset modal & overlay state in exported copy
-      const modal = clone.querySelector('#settings-modal');
-      if (modal) modal.classList.remove('active');
-      const overlay = clone.querySelector('#intro-overlay');
-      if (overlay) overlay.classList.remove('hidden');
-      const stage = clone.querySelector('#gift-stage');
-      if (stage) stage.classList.remove('opened');
-      clone.querySelectorAll('.candle').forEach(c => c.classList.remove('blown'));
-      const wish = clone.querySelector('#wish-status');
-      if (wish) wish.textContent = '';
-
-      // Inject current form values into HTML attributes
-      clone.querySelector('#input-title').setAttribute('value', document.getElementById('input-title').value);
-      clone.querySelector('#input-badge').setAttribute('value', document.getElementById('input-badge').value);
-      clone.querySelector('#input-prize').setAttribute('value', document.getElementById('input-prize').value);
-      clone.querySelector('#input-message').textContent = document.getElementById('input-message').value;
-
-      let htmlString = '<!DOCTYPE html>\n' + clone.outerHTML;
-      htmlString = htmlString.replace(/let EMBEDDED_PHOTO = ".*?";/, `let EMBEDDED_PHOTO = ${JSON.stringify(EMBEDDED_PHOTO)};`);
-      htmlString = htmlString.replace(/let EMBEDDED_AUDIO = ".*?";/, `let EMBEDDED_AUDIO = ${JSON.stringify(EMBEDDED_AUDIO)};`);
-      return htmlString;
-    }
-
-    function downloadSiteFile() {
-      const feedback = document.getElementById('export-feedback');
-      try {
-        const html = generateStandaloneHTML();
-        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'index.html';
-        document.body.appendChild(a);
-        a.click();
-        feedback.textContent = '✅ تم بدء تحميل ملف index.html على جهازك!';
-        setTimeout(() => {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 15000);
-      } catch (err) {
-        feedback.textContent = '⚠️ جرب زر المشاركة أو نسخ الكود بالأسفل.';
-      }
-    }
-
-    async function shareSiteFile() {
-      const feedback = document.getElementById('export-feedback');
-      try {
-        const html = generateStandaloneHTML();
-        const file = new File([html], 'index.html', { type: 'text/html' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'موقع عيد ميلاد صاحبي',
-            text: 'ملف الموقع جاهز للرفع'
-          });
-          feedback.textContent = '✅ تمت المشاركة / الحفظ بنجاح!';
-        } else {
-          downloadSiteFile();
-        }
-      } catch (err) {
-        feedback.textContent = 'ℹ️ تم إلغاء المشاركة أو المتصفح لا يدعمها.';
-      }
-    }
-
-    async function copySiteCode() {
-      const feedback = document.getElementById('export-feedback');
-      try {
-        const html = generateStandaloneHTML();
-        await navigator.clipboard.writeText(html);
-        feedback.textContent = '✅ تم نسخ كود الموقع كاملاً! الصقه في index.html على GitHub';
-      } catch (err) {
-        const html = generateStandaloneHTML();
-        const ta = document.createElement('textarea');
-        ta.value = html;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        feedback.textContent = '✅ تم نسخ الكود بنجاح!';
-      }
-    }
-
-    // Confetti Effect
     const confettiCanvas = document.getElementById('confetti-canvas');
     const cCtx = confettiCanvas.getContext('2d');
     let particles = [];
