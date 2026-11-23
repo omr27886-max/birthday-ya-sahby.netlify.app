@@ -1,398 +1,530 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>كل سنة وإنت طيب يا صاحبي 🎉</title>
-
-  <!-- Google Font: Cairo -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>كل سنة وأنت طيب يا صاحبي 🎉</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            cairo: ['Cairo', 'sans-serif'],
-          },
-          colors: {
-            midnight: '#0b0f19',
-            gold: '#f59e0b',
-          },
-        },
-      },
-    };
-  </script>
-
-  <!-- Embedded Site Configuration JSON -->
-  <script id="app-config" type="application/json">{"name":"صاحبي","age":"20","message":"كل سنة وإنت طيب يا أخويا وصاحب عمري! النهاردة مش يوم عادي، ده اليوم اللي اتولد فيه أجدع وأنضف إنسان عرفته في حياتي. ربنا يجعلها سنة خير ونجاح وستر عليك، وتحقق فيها كل أحلامك وتفضل دايماً منور حياتنا بضحكتك وجدعنتك اللي ملهاش زي!","gift":"خروجة وعزومة على حسابي في المكان اللي تختاره 🍔🎉","memories":[{"icon":"😂","title":"ضحكنا اللي مبيخلصش","desc":"فاكر لما كنا بنضحك على أتفه الحاجات لدرجة إن الناس كلها كانت بتبصلنا ومش فاهمين في إيه؟"},{"icon":"🤝","title":"مواقف الجدعنة","desc":"وقت الجد والشدة كنت دايماً أول واحد في ضهري من غير ما أتكلم ولا أطلب."},{"icon":"🌙","title":"سهرات آخر الليل","desc":"أحلى كلام وخطط للمستقبل طلعت في قعداتنا وسهرنا للصبح على كوباية شاي."},{"icon":"🚀","title":"أحلامنا الجاية","desc":"لسه قدامنا إنجازات وذكريات أكتر بكتير هنحققها سوا بإذن الله يا بطل!"}],"photoDataUrl":"","audioDataUrl":"","audioName":""}</script>
-
   <style>
-    /* =========================================================
-       Base & Typography
-    ========================================================= */
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(20, 27, 45, 0.78);
+      --border-glow: rgba(245, 158, 11, 0.28);
+      --gold: #f59e0b;
+      --gold-light: #fcd34d;
+      --cyan: #38bdf8;
+      --rose: #fb7185;
+      --emerald: #34d399;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background-color: #0b0f19;
-      color: #f8fafc;
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
       font-family: 'Cairo', sans-serif;
-      overflow-x: hidden;
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.14) 0%, transparent 42%),
+        radial-gradient(circle at 85% 25%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(251, 113, 133, 0.11) 0%, transparent 50%);
+      color: var(--text-main);
       min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.7;
     }
 
-    ::-webkit-scrollbar {
-      width: 7px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0b0f19;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, #8b5cf6, #06b6d4);
-      border-radius: 9999px;
-    }
-
-    /* =========================================================
-       Glassmorphism Cards & Ambient Glows
-    ========================================================= */
-    .glass-card {
-      background: linear-gradient(145deg, rgba(23, 30, 52, 0.78), rgba(13, 18, 34, 0.9));
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .text-gold-gradient {
-      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 55%, #d97706 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .text-party-gradient {
-      background: linear-gradient(135deg, #fbbf24 0%, #a855f7 50%, #22d3ee 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .bg-orb {
+    /* Confetti Canvas */
+    #confetti-canvas {
       position: fixed;
-      border-radius: 9999px;
-      filter: blur(95px);
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 0;
-      opacity: 0.35;
-      animation: orbDrift 14s ease-in-out infinite alternate;
+      z-index: 999;
     }
 
-    @keyframes orbDrift {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(25px, -35px) scale(1.12); }
+    /* Intro Gift Screen */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #162038 0%, #070a12 100%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
     }
 
-    /* =========================================================
-       3D Animated Gift Box (Intro Overlay)
-    ========================================================= */
-    .gift-3d-scene {
-      perspective: 900px;
+    #intro-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
-    .gift-3d-box {
+    .gift-stage {
       position: relative;
+      width: 160px;
+      height: 160px;
+      margin-bottom: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: floatGift 2.8s ease-in-out infinite;
+    }
+
+    @keyframes floatGift {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.04); }
+    }
+
+    .gift-glow {
+      position: absolute;
       width: 150px;
       height: 150px;
-      margin: 0 auto;
-      transform-style: preserve-3d;
-      animation: giftHoverFloat 2.8s ease-in-out infinite;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, transparent 70%);
+      filter: blur(14px);
+      animation: pulseGlow 2s infinite alternate;
     }
 
-    @keyframes giftHoverFloat {
-      0%, 100% { transform: translateY(0) rotateY(-8deg) rotateZ(-2deg); }
-      50% { transform: translateY(-14px) rotateY(8deg) rotateZ(2deg); }
+    @keyframes pulseGlow {
+      from { transform: scale(0.9); opacity: 0.6; }
+      to { transform: scale(1.2); opacity: 1; }
     }
 
-    .gift-lid-part {
-      transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.55s ease;
-    }
-
-    .gift-box-part {
-      transition: transform 0.6s ease 0.1s, opacity 0.5s ease 0.15s;
-    }
-
-    .gift-opened .gift-lid-part {
-      transform: translateY(-70px) rotate(-25deg) scale(1.1);
-      opacity: 0;
-    }
-
-    .gift-opened .gift-box-part {
-      transform: scale(1.15);
-      opacity: 0;
-    }
-
-    /* =========================================================
-       Glowing Circular Photo Frame
-    ========================================================= */
-    .photo-glow-ring {
-      background: conic-gradient(from 0deg, #f59e0b, #8b5cf6, #06b6d4, #ec4899, #f59e0b);
-      animation: rotateHalo 6s linear infinite;
-    }
-
-    @keyframes rotateHalo {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* =========================================================
-       Multi-Tier CSS Birthday Cake & 3 Flickering Candles
-    ========================================================= */
-    .css-cake-wrapper {
+    .gift-box {
       position: relative;
-      width: 260px;
-      height: 230px;
+      width: 112px;
+      height: 92px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-radius: 12px;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.55);
+      display: flex;
+      justify-content: center;
+    }
+
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 100%;
+      background: linear-gradient(180deg, #fef3c7, #fbbf24);
+    }
+
+    .gift-lid {
+      position: absolute;
+      top: -22px;
+      left: -6px;
+      width: 124px;
+      height: 26px;
+      background: linear-gradient(135deg, #fbbf24, #b45309);
+      border-radius: 8px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      justify-content: center;
+    }
+
+    .gift-lid::before {
+      content: '';
+      width: 22px;
+      height: 100%;
+      background: #fef3c7;
+    }
+
+    .gift-bow {
+      position: absolute;
+      top: -18px;
+      width: 48px;
+      height: 20px;
+      border: 5px solid #fef3c7;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .gift-stage.opened .gift-lid {
+      transform: translateY(-45px) rotate(-14deg);
+    }
+
+    .intro-title {
+      font-size: clamp(1.6rem, 5vw, 2.3rem);
+      font-weight: 900;
+      background: linear-gradient(90deg, #fcd34d, #f59e0b, #fb7185);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .intro-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 26px;
+    }
+
+    .btn-open {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      color: #fff;
+      border: none;
+      padding: 14px 34px;
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(245, 158, 11, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-open:active {
+      transform: scale(0.96);
+    }
+
+    /* Top Floating Bar */
+    .top-bar {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      z-index: 900;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .pill-btn {
+      pointer-events: auto;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-main);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .pill-btn:hover {
+      border-color: var(--gold);
+    }
+
+    .pill-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 780px;
       margin: 0 auto;
+      padding: 84px 18px 70px;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 24px 12px 36px;
+    }
+
+    .photo-ring-wrap {
+      position: relative;
+      width: 168px;
+      height: 168px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #f59e0b, #fb7185, #38bdf8, #34d399, #f59e0b);
+      animation: spinRing 6s linear infinite;
+    }
+
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+
+    .photo-inner {
+      position: relative;
+      width: 156px;
+      height: 156px;
+      border-radius: 50%;
+      background: #131b2e;
+      border: 4px solid var(--bg-dark);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .badge-age {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold-light);
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 6vw, 3rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 25%, #fcd34d 70%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.tagline {
+      color: var(--text-muted);
+      font-size: 1.08rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Section Card */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-glow);
+      border-radius: 24px;
+      padding: 26px 22px;
+      margin-bottom: 26px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Interactive Cake */
+    .cake-area {
+      text-align: center;
+      padding: 16px 0 6px;
+    }
+
+    .cake-wrapper {
+      position: relative;
+      width: 220px;
+      height: 175px;
+      margin: 24px auto 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      user-select: none;
     }
 
-    .cake-candles-row {
+    .candles-row {
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 28px;
-      margin-bottom: -2px;
-      z-index: 10;
+      gap: 26px;
+      margin-bottom: -4px;
+      z-index: 3;
     }
 
     .candle {
       position: relative;
       width: 14px;
-      height: 52px;
-      border-radius: 6px 6px 2px 2px;
+      height: 44px;
+      background: repeating-linear-gradient(45deg, #fff, #fff 5px, #fb7185 5px, #fb7185 10px);
+      border-radius: 4px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s ease;
     }
 
-    .candle:hover {
-      transform: scale(1.08);
-    }
-
-    .candle-1 {
-      background: repeating-linear-gradient(
-        -45deg,
-        #f8fafc,
-        #f8fafc 6px,
-        #ec4899 6px,
-        #ec4899 12px
-      );
-    }
-
-    .candle-2 {
-      height: 60px;
-      background: repeating-linear-gradient(
-        -45deg,
-        #fef3c7,
-        #fef3c7 6px,
-        #f59e0b 6px,
-        #f59e0b 12px
-      );
-    }
-
-    .candle-3 {
-      background: repeating-linear-gradient(
-        -45deg,
-        #f8fafc,
-        #f8fafc 6px,
-        #06b6d4 6px,
-        #06b6d4 12px
-      );
-    }
-
-    .candle-wick {
+    .flame {
       position: absolute;
-      top: -7px;
+      top: -22px;
       left: 50%;
       transform: translateX(-50%);
-      width: 3px;
-      height: 8px;
-      background: #cbd5e1;
-      border-radius: 2px;
-    }
-
-    .candle-flame {
-      position: absolute;
-      top: -32px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 16px;
-      height: 26px;
-      background: radial-gradient(circle at 50% 70%, #fef9c3 0%, #fbbf24 45%, #f97316 85%, transparent 100%);
+      width: 14px;
+      height: 20px;
+      background: radial-gradient(circle at 50% 75%, #fff 10%, #fde047 45%, #f97316 85%, transparent 100%);
       border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
-      box-shadow: 0 0 18px 6px rgba(251, 191, 36, 0.65), 0 0 34px 12px rgba(245, 158, 11, 0.35);
-      transform-origin: center bottom;
-      animation: flameFlicker 0.85s infinite alternate ease-in-out;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 0 14px #f59e0b, 0 0 28px #fbbf24;
+      animation: flicker 0.35s infinite alternate;
+      transition: opacity 0.3s, transform 0.3s;
     }
 
-    .candle:nth-child(2) .candle-flame {
-      animation-duration: 0.7s;
-    }
-
-    .candle:nth-child(3) .candle-flame {
-      animation-duration: 0.95s;
-    }
-
-    @keyframes flameFlicker {
-      0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
-      40% { transform: translateX(-50%) scale(1.08, 0.92) rotate(3deg); }
-      75% { transform: translateX(-50%) scale(0.95, 1.08) rotate(-2deg); }
-      100% { transform: translateX(-50%) scale(1.04) rotate(2deg); }
-    }
-
-    .candle.is-out .candle-flame {
+    .candle.blown .flame {
       opacity: 0;
       transform: translateX(-50%) scale(0);
-      animation: none;
     }
 
-    .candle-smoke {
+    .smoke {
       position: absolute;
-      top: -30px;
+      top: -28px;
       left: 50%;
-      transform: translateX(-50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 9999px;
-      background: rgba(226, 232, 240, 0.75);
-      filter: blur(3px);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(226, 232, 240, 0.7);
       opacity: 0;
       pointer-events: none;
     }
 
-    .candle.is-out .candle-smoke {
-      animation: smokePuff 1.8s ease-out forwards;
+    .candle.blown .smoke {
+      animation: smokeRise 1.2s ease-out forwards;
     }
 
-    @keyframes smokePuff {
-      0% {
-        opacity: 0.9;
-        transform: translate(-50%, 0) scale(0.7);
-      }
-      50% {
-        opacity: 0.55;
-        transform: translate(-30%, -26px) scale(1.6);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(-70%, -56px) scale(2.4);
-      }
+    @keyframes flicker {
+      from { transform: translateX(-50%) scale(0.94) rotate(-2deg); }
+      to { transform: translateX(-50%) scale(1.06) rotate(2deg); }
     }
 
-    .cake-top-tier {
-      position: relative;
-      width: 156px;
-      height: 58px;
-      background: linear-gradient(180deg, #7c3aed 0%, #4c1d95 100%);
+    @keyframes smokeRise {
+      0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.8); }
+      100% { opacity: 0; transform: translate(-30%, -35px) scale(2.4); }
+    }
+
+    .cake-top {
+      width: 168px;
+      height: 44px;
+      background: linear-gradient(180deg, #fbcfe8, #f472b6);
       border-radius: 16px 16px 6px 6px;
-      border-top: 8px solid #22d3ee;
-      box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.35), 0 6px 16px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
-    }
-
-    .cake-top-tier::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 14px;
-      background: radial-gradient(circle at 12px 0, #22d3ee 10px, transparent 11px);
-      background-size: 24px 16px;
-    }
-
-    .cake-bottom-tier {
       position: relative;
-      width: 224px;
-      height: 72px;
-      background: linear-gradient(180deg, #4338ca 0%, #1e1b4b 100%);
-      border-radius: 18px 18px 10px 10px;
-      border-top: 9px solid #f59e0b;
-      box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      padding: 12px 18px 0;
-      overflow: hidden;
+      z-index: 2;
+      box-shadow: inset 0 -6px 0 rgba(219, 39, 119, 0.25);
     }
 
-    .cake-bottom-tier::after {
+    .cake-bottom {
+      width: 204px;
+      height: 56px;
+      background: linear-gradient(180deg, #92400e, #78350f);
+      border-radius: 10px 10px 18px 18px;
+      position: relative;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .cake-bottom::after {
       content: '';
       position: absolute;
-      top: 0;
+      top: 18px;
       left: 0;
       right: 0;
-      height: 16px;
-      background: radial-gradient(circle at 14px 0, #f59e0b 11px, transparent 12px);
-      background-size: 28px 18px;
+      height: 10px;
+      background: #fef3c7;
     }
 
-    .cake-gem {
-      width: 9px;
-      height: 9px;
-      border-radius: 9999px;
-      box-shadow: 0 0 8px currentColor;
+    .cake-plate {
+      width: 236px;
+      height: 12px;
+      background: #cbd5e1;
+      border-radius: 999px;
+      margin-top: 2px;
     }
 
-    .cake-stand {
-      width: 256px;
-      height: 14px;
-      background: linear-gradient(90deg, #475569, #e2e8f0, #475569);
-      border-radius: 9999px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
+    .btn-action {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #fff;
+      border: none;
+      padding: 11px 24px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+      transition: transform 0.2s;
     }
 
-    /* =========================================================
-       3D Interactive Flip Cards (Memories)
-    ========================================================= */
-    .memory-flip-card {
+    .btn-action:active {
+      transform: scale(0.95);
+    }
+
+    #wish-status {
+      margin-top: 12px;
+      font-weight: 700;
+      color: var(--emerald);
+      min-height: 26px;
+    }
+
+    /* Friendship Letter */
+    .letter-box {
+      background: rgba(15, 23, 42, 0.65);
+      border-right: 4px solid var(--gold);
+      border-radius: 14px;
+      padding: 20px;
+      font-size: 1.06rem;
+      line-height: 1.95;
+      color: #e2e8f0;
+      white-space: pre-line;
+    }
+
+    /* Memories Flip Grid */
+    .memories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .flip-card {
+      height: 175px;
       perspective: 1000px;
-      height: 225px;
       cursor: pointer;
     }
 
-    .memory-flip-inner {
+    .flip-inner {
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
       transform-style: preserve-3d;
     }
 
-    .memory-flip-card.flipped .memory-flip-inner {
+    .flip-card.flipped .flip-inner {
       transform: rotateY(180deg);
     }
 
-    .memory-face {
+    .flip-front, .flip-back {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
       backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      border-radius: 1.25rem;
-      padding: 1.35rem;
+      border-radius: 18px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -400,1818 +532,831 @@
       text-align: center;
     }
 
-    .memory-back {
+    .flip-front {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .flip-front .emoji {
+      font-size: 2.3rem;
+      margin-bottom: 8px;
+    }
+
+    .flip-front h3 {
+      font-size: 1.05rem;
+      color: var(--gold-light);
+    }
+
+    .flip-front span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .flip-back {
+      background: linear-gradient(135deg, #1e3a8a, #0f172a);
+      border: 1px solid var(--cyan);
       transform: rotateY(180deg);
-      background: linear-gradient(145deg, rgba(109, 40, 217, 0.55), rgba(8, 145, 178, 0.45));
-      border: 1px solid rgba(245, 158, 11, 0.45);
+      font-size: 0.95rem;
+      color: #f1f5f9;
+      line-height: 1.65;
     }
 
-    /* =========================================================
-       Native Overlay File Input (Mobile WebView Safe)
-    ========================================================= */
-    .file-overlay-btn {
+    /* Scratch Card */
+    .scratch-container {
       position: relative;
-      overflow: hidden;
-    }
-
-    .file-overlay-btn input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
       width: 100%;
-      height: 100%;
-      cursor: pointer;
-      z-index: 5;
+      max-width: 360px;
+      height: 150px;
+      margin: 10px auto 0;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px dashed var(--gold);
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px;
+      user-select: none;
     }
 
-    /* =========================================================
-       Typewriter Cursor & Scratch Canvas
-    ========================================================= */
-    .type-cursor::after {
-      content: '|';
-      color: #f59e0b;
+    .prize-reveal {
+      font-size: 1.2rem;
       font-weight: 800;
-      margin-right: 3px;
-      animation: blinkBar 0.8s infinite;
-    }
-
-    @keyframes blinkBar {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
+      color: var(--gold-light);
     }
 
     #scratch-canvas {
-      touch-action: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       cursor: grab;
+      touch-action: none;
     }
 
-    #scratch-canvas:active {
-      cursor: grabbing;
+    /* Customization Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 22px;
+      width: 100%;
+      max-width: 540px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 22px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+    }
+
+    .modal-header h2 {
+      font-size: 1.2rem;
+      color: var(--gold-light);
+    }
+
+    .close-modal {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: #1f2937;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    textarea.form-control {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .file-upload-box {
+      background: rgba(31, 41, 55, 0.7);
+      border: 1px dashed rgba(245, 158, 11, 0.45);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .file-btn {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .file-status {
+      font-size: 0.82rem;
+      color: var(--emerald);
+      margin-top: 6px;
+    }
+
+    .export-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-export {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.96rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.15s;
+    }
+
+    .btn-export:active {
+      transform: scale(0.98);
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+    }
+
+    .btn-share {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+    }
+
+    #export-feedback {
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--gold-light);
+      margin-top: 8px;
+      min-height: 22px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      padding-top: 12px;
     }
   </style>
 </head>
-<body class="selection:bg-amber-400 selection:text-slate-950">
+<body>
 
-  <!-- Background Audio Element -->
-  <audio id="bg-music" loop preload="auto"></audio>
+  <canvas id="confetti-canvas"></canvas>
 
-  <!-- Ambient Background Glow Orbs -->
-  <div class="bg-orb w-80 h-80 bg-violet-600 top-[-4rem] right-[-4rem]"></div>
-  <div class="bg-orb w-96 h-96 bg-cyan-500 bottom-[10%] left-[-6rem]" style="animation-delay: -5s;"></div>
-  <div class="bg-orb w-72 h-72 bg-amber-500 top-[42%] right-[12%]" style="animation-delay: -9s; opacity: 0.22;"></div>
-
-  <!-- Confetti Canvas -->
-  <canvas id="confetti-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-50"></canvas>
-
-  <!-- =========================================================
-       1. INTRO GIFT BOX SURPRISE SCREEN
-  ========================================================= -->
-  <section
-    id="intro-overlay"
-    class="fixed inset-0 z-40 flex flex-col items-center justify-center px-5 text-center bg-[#0b0f19]/95 backdrop-blur-xl transition-all duration-700"
-  >
-    <!-- Floating Sparkles -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none select-none">
-      <span class="absolute top-[14%] right-[18%] text-2xl animate-bounce">✨</span>
-      <span class="absolute top-[22%] left-[20%] text-xl animate-pulse">🌟</span>
-      <span class="absolute bottom-[22%] right-[22%] text-2xl animate-pulse">🎉</span>
-      <span class="absolute bottom-[18%] left-[16%] text-xl animate-bounce">🎈</span>
+  <!-- Intro Gift Screen -->
+  <div id="intro-overlay">
+    <div class="gift-stage" id="gift-stage" onclick="openSurprise()">
+      <div class="gift-glow"></div>
+      <div class="gift-box">
+        <div class="gift-lid">
+          <div class="gift-bow"></div>
+        </div>
+      </div>
     </div>
+    <h2 class="intro-title">مفاجأة ليك يا صاحبي 🎁</h2>
+    <p class="intro-sub">النهاردة مش يوم عادي.. اضغط على الهدية وافتحها</p>
+    <button class="btn-open" onclick="openSurprise()">اضغط لفتح المفاجأة ✨</button>
+  </div>
 
-    <div class="relative max-w-md w-full mx-auto flex flex-col items-center">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/15 border border-violet-400/30 text-violet-200 text-xs sm:text-sm font-bold mb-6">
-        <span>✨ مفاجأة خاصة وصلتلك</span>
-      </div>
+  <!-- Top Controls -->
+  <div class="top-bar">
+    <button class="pill-btn" id="music-toggle-btn" onclick="toggleMusic()">
+      <span id="music-icon">🔇</span>
+      <span id="music-label">تشغيل الأغنية</span>
+    </button>
+    <button class="pill-btn" onclick="openSettings()">
+      <span>⚙️</span>
+      <span>تعديل وحفظ</span>
+    </button>
+  </div>
 
-      <!-- Animated 3D-Style Gift Box -->
-      <div class="gift-3d-scene mb-6">
-        <div id="gift-box-visual" class="gift-3d-box flex items-center justify-center">
-          <div class="absolute inset-1 rounded-full bg-gradient-to-tr from-amber-500/40 via-violet-500/40 to-cyan-400/40 blur-2xl animate-pulse"></div>
-          <svg viewBox="0 0 200 200" class="w-40 h-40 drop-shadow-[0_16px_28px_rgba(0,0,0,0.65)] overflow-visible">
-            <defs>
-              <linearGradient id="gBoxFront" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#8b5cf6" />
-                <stop offset="100%" stop-color="#4c1d95" />
-              </linearGradient>
-              <linearGradient id="gBoxSide" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#6d28d9" />
-                <stop offset="100%" stop-color="#2e1065" />
-              </linearGradient>
-              <linearGradient id="gRibbon" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#fef08a" />
-                <stop offset="50%" stop-color="#f59e0b" />
-                <stop offset="100%" stop-color="#b45309" />
-              </linearGradient>
-            </defs>
+  <!-- Hidden Custom Audio -->
+  <audio id="bg-audio" loop preload="auto"></audio>
 
-            <g class="gift-box-part">
-              <polygon points="35,88 100,115 100,182 35,152" fill="url(#gBoxFront)" />
-              <polygon points="100,115 165,88 165,152 100,182" fill="url(#gBoxSide)" />
-              <polygon points="61,99 74,104 74,170 61,164" fill="url(#gRibbon)" />
-              <polygon points="126,104 139,99 139,164 126,170" fill="url(#gRibbon)" />
-            </g>
-
-            <g class="gift-lid-part">
-              <polygon points="28,68 100,96 100,116 28,87" fill="#7c3aed" />
-              <polygon points="100,96 172,68 172,87 100,116" fill="#5b21b6" />
-              <polygon points="100,44 172,68 100,96 28,68" fill="#a855f7" />
-              <polygon points="62,56 138,83 125,88 50,61" fill="url(#gRibbon)" />
-              <polygon points="138,56 62,83 75,88 150,61" fill="url(#gRibbon)" />
-              <path d="M100 66 C76 36, 52 54, 88 70 Z" fill="url(#gRibbon)" />
-              <path d="M100 66 C124 36, 148 54, 112 70 Z" fill="url(#gRibbon)" />
-              <circle cx="100" cy="67" r="8" fill="#fef08a" />
-            </g>
-          </svg>
+  <!-- Main Content -->
+  <main class="container">
+    <section class="hero">
+      <div class="photo-ring-wrap">
+        <div class="photo-ring"></div>
+        <div class="photo-inner">
+          <span id="default-avatar">👑</span>
+          <img id="friend-photo" alt="صورة صاحبي" />
         </div>
       </div>
+      <div class="badge-age" id="display-badge">🎂 أسطورة جديدة بتكبر سنة</div>
+      <h1 id="display-title">كل سنة وأنت طيب يا صاحبي</h1>
+      <p class="tagline" id="display-subtitle">وجودك في حياتي نعمة كبيرة.. عقبال مليون سنة سعادة ونجاح وضحك من القلب</p>
+    </section>
 
-      <h1 class="text-2xl sm:text-4xl font-black text-white mb-2">
-        هدية مخصوصة لـ <span id="intro-friend-name" class="text-gold-gradient">صاحبي</span> 👑
-      </h1>
-      <p class="text-slate-300 text-sm sm:text-base mb-7 leading-relaxed">
-        جهزتلك حاجة بسيطة تفرحك في عيد ميلادك.. جاهز تشوفها؟
-      </p>
-
-      <button
-        id="open-gift-btn"
-        type="button"
-        class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 text-slate-950 font-black text-lg shadow-[0_0_32px_rgba(245,158,11,0.5)] hover:brightness-110 active:scale-95 transition-all"
-      >
-        اضغط لفتح المفاجأة 🎁
-      </button>
-
-      <span class="mt-4 text-xs text-slate-400">🔊 ارفع صوت الموبايل عشان تسمع المفاجأة</span>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       2. TOP FLOATING CONTROL BAR
-  ========================================================= -->
-  <nav class="fixed top-3 left-3 right-3 z-30 flex items-center justify-center pointer-events-none">
-    <div class="pointer-events-auto flex items-center justify-between gap-2 sm:gap-3 px-3.5 py-2 rounded-2xl glass-card border-amber-400/30 shadow-xl max-w-lg w-full">
-      <button
-        id="music-toggle-btn"
-        type="button"
-        class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 font-bold text-xs sm:text-sm hover:bg-cyan-500/30 active:scale-95 transition"
-      >
-        🎵 تشغيل الموسيقى
-      </button>
-
-      <button
-        id="open-settings-btn"
-        type="button"
-        class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-md hover:brightness-110 active:scale-95 transition"
-      >
-        ⚙️ تعديل وحفظ
-      </button>
-    </div>
-  </nav>
-
-  <!-- =========================================================
-       MAIN CELEBRATION CONTENT
-  ========================================================= -->
-  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-20 pb-20 space-y-14 sm:space-y-20">
-
-    <!-- =======================================================
-         3. HERO SECTION
-    ======================================================== -->
-    <header class="text-center pt-4">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border-amber-400/30 text-amber-300 text-xs sm:text-sm font-bold mb-6">
-        <span>👑 النهاردة عيد ميلاد أجدع صاحب في الدنيا</span>
+    <!-- Cake Section -->
+    <section class="card cake-area">
+      <h2 class="section-title" style="justify-content: center;">🕯️ اتمنى أمنية واطفي الشمع</h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem;">اضغط على كل شمعة أو دوس على الزرار اللي تحت</p>
+      <div class="cake-wrapper">
+        <div class="candles-row">
+          <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="smoke"></div></div>
+          <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="smoke"></div></div>
+          <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="smoke"></div></div>
+        </div>
+        <div class="cake-top"></div>
+        <div class="cake-bottom"></div>
+        <div class="cake-plate"></div>
       </div>
+      <button class="btn-action" id="blow-btn" onclick="blowAllCandles()">انفخ الشمع 💨</button>
+      <div id="wish-status"></div>
+    </section>
 
-      <!-- Circular Glowing Photo Frame -->
-      <div class="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-6">
-        <div class="photo-glow-ring absolute -inset-1.5 rounded-full"></div>
-        <div class="photo-glow-ring absolute -inset-3 rounded-full blur-lg opacity-45"></div>
+    <!-- Message Section -->
+    <section class="card">
+      <h2 class="section-title">💌 رسالة من القلب لأخويا</h2>
+      <div class="letter-box" id="display-message">يا صاحبي وأخويا اللي مجبتوش أمي..
+كل سنة وأنت طيب وبألف خير وصحة وسعادة.
+السنين بتعدي والمواقف بتثبت إنك أجدع وأنظف إنسان عرفته في حياتي.
+ربنا يحققلك كل أحلامك ويكتبلك الخير في كل خطوة جاية، ونفضل دايماً في ضهر بعض على الحلوة والمرة!</div>
+    </section>
 
-        <div
-          id="hero-photo-trigger"
-          class="relative w-full h-full rounded-full bg-slate-900 p-1.5 overflow-hidden shadow-2xl flex items-center justify-center cursor-pointer"
-          title="اضغط لإضافة أو تغيير الصورة"
-        >
-          <img
-            id="hero-photo"
-            src=""
-            alt="صورة صاحبك"
-            class="hidden w-full h-full object-cover rounded-full"
-          />
-
-          <div
-            id="hero-placeholder"
-            class="w-full h-full rounded-full bg-gradient-to-b from-violet-950 via-slate-900 to-slate-950 flex flex-col items-center justify-center p-2"
-          >
-            <span class="text-5xl sm:text-6xl mb-1">🥳</span>
-            <span class="text-[11px] font-bold text-amber-300 bg-black/50 px-2.5 py-0.5 rounded-full border border-amber-400/30">
-              صورة النجم 📸
-            </span>
+    <!-- Memories Section -->
+    <section class="card">
+      <h2 class="section-title">📸 مواقف وذكريات متتنسيش</h2>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px;">اضغط على كل كارت عشان تقلبه 👇</p>
+      <div class="memories-grid">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="emoji">😂</div>
+              <h3>الضحك الهستيري</h3>
+              <span>اضغط هنا</span>
+            </div>
+            <div class="flip-back" id="mem-1">أكتر حد بنضحك معاه من غير سبب لحد ما عنينا تدمع، وأبسط قعدة معاك بتقلب أحلى يوم.</div>
           </div>
         </div>
-
-        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-xs shadow-lg whitespace-nowrap">
-          ⭐ أسطورة اليوم ⭐
-        </div>
-      </div>
-
-      <!-- Bold Title -->
-      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-4">
-        <span class="text-white">كل سنة وإنت طيب يا </span>
-        <span id="hero-name" class="text-party-gradient">صاحبي</span>
-        <span> 🎉</span>
-      </h1>
-
-      <!-- Age Badge -->
-      <div id="hero-age-badge-wrap" class="mb-5">
-        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-violet-500/20 border border-cyan-400/40 text-cyan-200 font-extrabold text-sm sm:text-base shadow-lg">
-          <span>🎂</span>
-          <span id="hero-age-text">20 سنة من الجدعنة والضحك</span>
-          <span>✨</span>
-        </span>
-      </div>
-
-      <p class="max-w-xl mx-auto text-slate-300 text-sm sm:text-lg leading-relaxed">
-        سنة جديدة سعيدة عليك يا أخويا، يا رب تحقق فيها كل اللي بتتمناه وتفضل دايماً في أحسن حال!
-      </p>
-    </header>
-
-    <!-- =======================================================
-         4. INTERACTIVE BIRTHDAY CAKE (3 CANDLES)
-    ======================================================== -->
-    <section id="cake-section" class="glass-card rounded-3xl p-6 sm:p-9 text-center relative overflow-hidden">
-      <h2 class="text-2xl sm:text-3xl font-black text-gold-gradient mb-2">
-        اطفي الشمع واطلب أمنية 🎂
-      </h2>
-      <p id="cake-hint" class="text-slate-300 text-xs sm:text-base mb-6">
-        اتمنى أمنية حلوة للسنة الجديدة، والمس أي شمعة أو اضغط على الزرار لإطفائها!
-      </p>
-
-      <!-- Multi-Tier CSS Cake with 3 Flickering Candles -->
-      <div class="css-cake-wrapper mb-6">
-        <div class="cake-candles-row">
-          <div class="candle candle-1" data-candle="0" role="button" tabindex="0" aria-label="الشمعة الأولى">
-            <div class="candle-wick"></div>
-            <div class="candle-flame"></div>
-            <div class="candle-smoke"></div>
-          </div>
-          <div class="candle candle-2" data-candle="1" role="button" tabindex="0" aria-label="الشمعة الثانية">
-            <div class="candle-wick"></div>
-            <div class="candle-flame"></div>
-            <div class="candle-smoke"></div>
-          </div>
-          <div class="candle candle-3" data-candle="2" role="button" tabindex="0" aria-label="الشمعة الثالثة">
-            <div class="candle-wick"></div>
-            <div class="candle-flame"></div>
-            <div class="candle-smoke"></div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="emoji">🛡️</div>
+              <h3>وقت الجد والشدة</h3>
+              <span>اضغط هنا</span>
+            </div>
+            <div class="flip-back" id="mem-2">في أي موقف صعب بلاقيك أول واحد واقف في ضهري قبل ما حتى أطلب منك.</div>
           </div>
         </div>
-
-        <div class="cake-top-tier"></div>
-
-        <div class="cake-bottom-tier">
-          <span class="cake-gem bg-cyan-400 text-cyan-400"></span>
-          <span class="cake-gem bg-amber-400 text-amber-400"></span>
-          <span class="cake-gem bg-pink-400 text-pink-400"></span>
-          <span class="cake-gem bg-emerald-400 text-emerald-400"></span>
-          <span class="cake-gem bg-amber-400 text-amber-400"></span>
-          <span class="cake-gem bg-cyan-400 text-cyan-400"></span>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="emoji">🌙</div>
+              <h3>سهر الليالي والكلام</h3>
+              <span>اضغط هنا</span>
+            </div>
+            <div class="flip-back" id="mem-3">الفضفضة والخطط اللي بنرسمها للمستقبل وإحنا سهرانين.. كلها جاية وهنحققها سوا.</div>
+          </div>
         </div>
-
-        <div class="cake-stand"></div>
-      </div>
-
-      <!-- Cake Action Buttons -->
-      <div class="flex flex-wrap items-center justify-center gap-3">
-        <button
-          id="blow-candles-btn"
-          type="button"
-          class="px-7 py-3 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-black text-base shadow-[0_0_24px_rgba(34,211,238,0.4)] hover:brightness-110 active:scale-95 transition"
-        >
-          انفخ الشمع 💨
-        </button>
-
-        <button
-          id="relight-candles-btn"
-          type="button"
-          class="hidden px-5 py-3 rounded-2xl bg-white/10 border border-white/15 text-amber-300 font-bold text-sm hover:bg-white/15 active:scale-95 transition"
-        >
-          إشعال الشمع 🔥
-        </button>
-      </div>
-
-      <!-- Celebratory Wish Message -->
-      <div
-        id="wish-banner"
-        class="hidden mt-6 max-w-lg mx-auto p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-violet-500/20 to-cyan-500/20 border border-amber-400/50"
-      >
-        <p class="text-lg font-extrabold text-amber-300 mb-1">
-          🌟 أمنيتك اتحققت بإذن الله!
-        </p>
-        <p class="text-slate-200 text-sm">
-          عقبال 100 سنة صحة وسعادة ونجاح يا أجدع أخ في الدنيا 🥳🎉
-        </p>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="emoji">🚀</div>
+              <h3>السنة الجديدة ليك</h3>
+              <span>اضغط هنا</span>
+            </div>
+            <div class="flip-back" id="mem-4">السنة دي هتكون وش السعد عليك في كل حاجة بتتمناها.. تستاهل كل خير يا بطل.</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- =======================================================
-         5. HEARTFELT MESSAGE CARD (TYPEWRITER)
-    ======================================================== -->
-    <section id="message-section" class="glass-card rounded-3xl p-6 sm:p-9 border-violet-400/25">
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-white/10">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-violet-600 flex items-center justify-center text-xl shadow-md">
-            💌
-          </div>
-          <div>
-            <h2 class="text-xl sm:text-2xl font-black text-white">رسالة من القلب</h2>
-            <p class="text-xs text-slate-400">كلام طالع من القلب لأخويا وصاحبي</p>
-          </div>
-        </div>
-
-        <button
-          id="show-full-msg-btn"
-          type="button"
-          class="px-3.5 py-2 rounded-xl bg-amber-400/15 border border-amber-400/35 text-amber-300 text-xs font-bold hover:bg-amber-400/25 active:scale-95 transition"
-        >
-          إظهار الرسالة كاملة ⚡
-        </button>
-      </div>
-
-      <div class="bg-slate-950/60 rounded-2xl p-5 sm:p-6 border border-white/5 min-h-[150px] flex items-center">
-        <p
-          id="message-text"
-          class="text-slate-100 text-base sm:text-lg leading-loose whitespace-pre-line font-semibold type-cursor"
-        ></p>
+    <!-- Scratch Gift Section -->
+    <section class="card" style="text-align: center;">
+      <h2 class="section-title" style="justify-content: center;">🎟️ كارت هديتك.. اخربش واكسب!</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">امسح الطبقة الفضية بصابعك عشان تشوف هديتك</p>
+      <div class="scratch-container">
+        <div class="prize-reveal" id="display-prize">🎁 خروجة وعزومة جامدة على حسابي في أي مكان تختاره!</div>
+        <canvas id="scratch-canvas"></canvas>
       </div>
     </section>
 
-    <!-- =======================================================
-         6. INTERACTIVE MEMORY FLIP CARDS (4 CARDS)
-    ======================================================== -->
-    <section id="memories-section">
-      <div class="text-center mb-6">
-        <h2 class="text-2xl sm:text-3xl font-black text-gold-gradient mb-1">
-          أحلى ذكرياتنا سوا 📸
-        </h2>
-        <p class="text-slate-300 text-xs sm:text-sm">
-          اضغط على أي كارت عشان تقلبه وتشوف الذكرى 👀
-        </p>
-      </div>
-
-      <div id="memories-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-        <!-- Rendered dynamically from state.memories -->
-      </div>
-    </section>
-
-    <!-- =======================================================
-         7. SCRATCH-OFF GIFT CARD
-    ======================================================== -->
-    <section id="gift-section" class="glass-card rounded-3xl p-6 sm:p-9 text-center border-amber-400/30">
-      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold mb-3">
-        <span>🎟️ كوبون هدية رسمي</span>
-      </div>
-
-      <h2 class="text-2xl sm:text-3xl font-black text-white mb-2">
-        هديتك عندي.. اخربش واكسب! 🎁
-      </h2>
-      <p class="text-slate-300 text-xs sm:text-sm mb-6">
-        امسح الطبقة الذهبية بصابعك أو اضغط على زرار كشف الهدية
-      </p>
-
-      <!-- Scratch Container -->
-      <div class="relative max-w-md mx-auto h-44 sm:h-48 rounded-2xl overflow-hidden border-2 border-dashed border-amber-400/70 shadow-xl select-none">
-        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/25 via-violet-900/80 to-slate-950 flex flex-col items-center justify-center p-4 text-center">
-          <span class="text-3xl mb-1">🏆</span>
-          <span class="text-xs text-amber-300 font-bold mb-1">مبروك كسبت يا بطل!</span>
-          <p id="gift-prize-text" class="text-lg sm:text-xl font-black text-white leading-snug">
-            خروجة وعزومة على حسابي في المكان اللي تختاره 🍔🎉
-          </p>
-          <span class="mt-2 text-[11px] text-cyan-300 font-bold">خد سكرين شوت وابعتلي فوراً 😉</span>
-        </div>
-
-        <canvas id="scratch-canvas" class="absolute inset-0 w-full h-full z-10 transition-opacity duration-500"></canvas>
-      </div>
-
-      <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-        <button
-          id="reveal-gift-btn"
-          type="button"
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-md hover:brightness-110 active:scale-95 transition"
-        >
-          كشف الهدية ✨
-        </button>
-
-        <button
-          id="reset-scratch-btn"
-          type="button"
-          class="hidden px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-slate-200 font-bold text-xs hover:bg-white/15 transition"
-        >
-          إعادة تغطية الكارت 🔄
-        </button>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center pt-4 border-t border-white/10 space-y-2">
-      <p class="text-base sm:text-lg font-extrabold text-slate-200">
-        كل سنة وإنت طيب وبخير يا <span id="footer-name" class="text-amber-400">صاحبي</span> ❤️
-      </p>
-      <p class="text-xs text-slate-400">
-        تقدر تعدل الاسم والصورة والأغنية وتحفظ الموقع من زرار "⚙️ تعديل وحفظ" فوق
-      </p>
+    <footer>
+      صُنع بكل حب وأخوة عشانك ❤️
     </footer>
   </main>
 
-  <!-- =========================================================
-       8. CUSTOMIZATION & RELIABLE SAVE/EXPORT MODAL
-  ========================================================= -->
-  <div
-    id="settings-modal"
-    class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="settings-modal-title"
-  >
-    <div class="bg-[#111729] border border-white/15 rounded-3xl w-full max-w-lg max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
-      <!-- Modal Header -->
-      <div class="px-5 py-4 border-b border-white/10 bg-slate-900/90 flex items-center justify-between">
-        <div>
-          <h3 id="settings-modal-title" class="text-lg sm:text-xl font-black text-amber-400">
-            ⚙️ تعديل وحفظ الموقع
-          </h3>
-          <p class="text-xs text-slate-400">ارفع صورته والأغنية وعدّل البيانات واحفظ الملف</p>
-        </div>
-        <button
-          id="close-settings-btn"
-          type="button"
-          aria-label="إغلاق"
-          class="w-9 h-9 rounded-xl bg-white/10 text-slate-200 hover:bg-red-500/20 hover:text-red-300 font-bold flex items-center justify-center transition"
-        >
-          ✕
-        </button>
+  <!-- Customization & Export Modal -->
+  <div class="modal-backdrop" id="settings-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>⚙️ تخصيص وحفظ الموقع</h2>
+        <button class="close-modal" onclick="closeSettings()">✕</button>
       </div>
 
-      <!-- Modal Scrollable Content -->
-      <div class="p-5 overflow-y-auto flex-1 space-y-5">
+      <div class="form-group">
+        <label>عنوان التهنئة الرئيسي</label>
+        <input type="text" class="form-control" id="input-title" value="كل سنة وأنت طيب يا صاحبي" oninput="applyLiveChanges()" />
+      </div>
 
-        <!-- Photo & Song Upload Box -->
-        <div class="p-4 rounded-2xl bg-slate-900/90 border border-amber-400/30 space-y-4">
-          <h4 class="text-sm font-extrabold text-amber-300">🎬 صورة صاحبك وأغنية عيد الميلاد</h4>
+      <div class="form-group">
+        <label>عمر صاحبك أو جملة مميزة</label>
+        <input type="text" class="form-control" id="input-badge" value="🎂 أسطورة جديدة بتكبر سنة" oninput="applyLiveChanges()" />
+      </div>
 
-          <!-- Photo Upload Row (Native Overlay File Input) -->
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-white/10 flex items-center gap-3">
-            <div class="w-16 h-16 rounded-full bg-slate-900 border-2 border-amber-400/50 overflow-hidden shrink-0 flex items-center justify-center">
-              <img id="settings-photo-preview" src="" alt="معاينة الصورة" class="hidden w-full h-full object-cover" />
-              <span id="settings-photo-icon" class="text-2xl">👤</span>
-            </div>
-
-            <div class="flex-1 space-y-2">
-              <div class="file-overlay-btn w-full py-2.5 px-3 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-200 font-bold text-xs text-center hover:bg-amber-400/30 transition">
-                <span>📸 اختار صورة صاحبك من الجهاز</span>
-                <input id="photo-file-input" type="file" accept="image/*" aria-label="اختار صورة صاحبك" />
-              </div>
-
-              <button
-                id="remove-photo-btn"
-                type="button"
-                class="hidden w-full py-1.5 px-3 rounded-lg bg-red-500/15 border border-red-400/30 text-red-300 text-xs font-bold hover:bg-red-500/25 transition"
-              >
-                حذف الصورة 🗑️
-              </button>
-            </div>
-          </div>
-
-          <!-- Song Upload Row (Native Overlay File Input) -->
-          <div class="p-3 rounded-xl bg-slate-950/80 border border-white/10 space-y-2.5">
-            <div class="flex items-center justify-between gap-2">
-              <span class="text-xs font-bold text-slate-200 truncate" id="settings-audio-label">
-                🎵 الأغنية الحالية: اللحن الافتراضي المدمج
-              </span>
-            </div>
-
-            <audio id="settings-audio-preview" controls class="hidden w-full h-9 rounded-lg"></audio>
-
-            <div class="flex items-center gap-2">
-              <div class="file-overlay-btn flex-1 py-2.5 px-3 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 font-bold text-xs text-center hover:bg-cyan-500/30 transition">
-                <span>🎶 اختار أغنية (MP3 / M4A)</span>
-                <input id="audio-file-input" type="file" accept="audio/*" aria-label="اختار أغنية عيد الميلاد" />
-              </div>
-
-              <button
-                id="remove-audio-btn"
-                type="button"
-                class="hidden py-2.5 px-3 rounded-xl bg-red-500/15 border border-red-400/30 text-red-300 text-xs font-bold hover:bg-red-500/25 transition"
-              >
-                إزالة 🗑️
-              </button>
-            </div>
-          </div>
+      <div class="form-group">
+        <label>صورة صاحبك 📸</label>
+        <div class="file-upload-box">
+          <label class="file-btn">
+            اختر صورة من جهازك
+            <input type="file" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)" />
+          </label>
+          <div class="file-status" id="photo-status">لم يتم اختيار صورة بعد (اختياري)</div>
         </div>
+      </div>
 
-        <!-- Text Customization Inputs -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label for="input-name" class="block text-xs font-bold text-slate-300 mb-1">اسم صاحبك 👤</label>
-            <input
-              id="input-name"
-              type="text"
-              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400"
-              placeholder="مثال: أحمد"
-            />
-          </div>
-
-          <div>
-            <label for="input-age" class="block text-xs font-bold text-slate-300 mb-1">السن 🎂</label>
-            <input
-              id="input-age"
-              type="text"
-              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400"
-              placeholder="مثال: 20"
-            />
-          </div>
+      <div class="form-group">
+        <label>أغنية عيد الميلاد 🎵 (MP3 / M4A / WAV)</label>
+        <div class="file-upload-box">
+          <label class="file-btn">
+            اختر أغنية من جهازك
+            <input type="file" accept="audio/*" style="display:none" onchange="handleAudioUpload(event)" />
+          </label>
+          <div class="file-status" id="audio-status">يتم حالياً استخدام لحن عيد الميلاد المدمج</div>
+          <audio id="preview-audio" controls style="width:100%; height:36px; margin-top:8px; display:none;"></audio>
         </div>
+      </div>
 
-        <div>
-          <label for="input-message" class="block text-xs font-bold text-slate-300 mb-1">رسالتك من القلب 💌</label>
-          <textarea
-            id="input-message"
-            rows="4"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white text-sm leading-relaxed focus:outline-none focus:border-amber-400"
-            placeholder="اكتب رسالتك لصاحبك هنا..."
-          ></textarea>
-        </div>
+      <div class="form-group">
+        <label>رسالتك لصاحبك 💌</label>
+        <textarea class="form-control" id="input-message" oninput="applyLiveChanges()">يا صاحبي وأخويا اللي مجبتوش أمي..
+كل سنة وأنت طيب وبألف خير وصحة وسعادة.
+السنين بتعدي والمواقف بتثبت إنك أجدع وأنظف إنسان عرفته في حياتي.
+ربنا يحققلك كل أحلامك ويكتبلك الخير في كل خطوة جاية، ونفضل دايماً في ضهر بعض على الحلوة والمرة!</textarea>
+      </div>
 
-        <div>
-          <label for="input-gift" class="block text-xs font-bold text-slate-300 mb-1">نص الهدية في كارت الخربشة 🎟️</label>
-          <input
-            id="input-gift"
-            type="text"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400"
-            placeholder="مثال: خروجة وعزومة على حسابي..."
-          />
-        </div>
+      <div class="form-group">
+        <label>نص الهدية داخل كارت الخربشة 🎁</label>
+        <input type="text" class="form-control" id="input-prize" value="🎁 خروجة وعزومة جامدة على حسابي في أي مكان تختاره!" oninput="applyLiveChanges()" />
+      </div>
 
-        <!-- 4 Memory Cards Editor -->
-        <div class="space-y-2.5">
-          <label class="block text-xs font-bold text-amber-300">📸 تعديل كروت الذكريات الأربعة</label>
-          <div id="memories-editor" class="space-y-2.5"></div>
-        </div>
-
-        <!-- Save Preview Button -->
-        <button
-          id="save-preview-btn"
-          type="button"
-          class="w-full py-3 px-4 rounded-xl bg-emerald-500 text-slate-950 font-black text-sm shadow-lg hover:brightness-110 active:scale-95 transition"
-        >
-          حفظ التعديلات في المعاينة ✅
-        </button>
-
-        <!-- Three Guaranteed Export Options -->
-        <div class="p-4 rounded-2xl bg-slate-900/95 border border-cyan-400/30 space-y-2.5">
-          <h4 class="text-xs sm:text-sm font-extrabold text-cyan-300 mb-1">
-            🚀 تصدير وحفظ الموقع النهائي (شامل الصورة والأغنية):
-          </h4>
-
-          <!-- Option A: Direct HTML Download -->
-          <button
-            id="export-download-btn"
-            type="button"
-            class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-md hover:brightness-110 active:scale-95 transition"
-          >
-            📥 تحميل ملف الموقع (HTML)
-          </button>
-
-          <!-- Option B: Native Mobile Share / Save to Files -->
-          <button
-            id="export-share-btn"
-            type="button"
-            class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-black text-xs sm:text-sm shadow-md hover:brightness-110 active:scale-95 transition"
-          >
-            📲 مشاركة أو حفظ في الملفات (Share)
-          </button>
-
-          <!-- Option C: Copy Full Standalone HTML Code -->
-          <button
-            id="export-copy-btn"
-            type="button"
-            class="w-full py-3 px-4 rounded-xl bg-violet-500/25 border border-violet-400/50 text-violet-100 font-extrabold text-xs sm:text-sm hover:bg-violet-500/35 active:scale-95 transition"
-          >
-            📋 نسخ كود الموقع كاملاً (HTML)
-          </button>
-
-          <!-- Visible Textarea for Copy / Manual Select -->
-          <div id="export-code-box" class="hidden pt-2 space-y-1.5">
-            <p class="text-[11px] text-amber-300 font-bold">
-              ✅ الكود جاهز بالأسفل (تم نسخه للحافظة - تقدر تلصقه في GitHub أو أي محرر):
-            </p>
-            <textarea
-              id="export-code-textarea"
-              rows="4"
-              readonly
-              dir="ltr"
-              class="w-full p-2.5 rounded-xl bg-slate-950 border border-white/15 text-[11px] text-cyan-200 font-mono focus:outline-none"
-            ></textarea>
-          </div>
-        </div>
+      <div class="export-actions">
+        <button class="btn-export btn-download" onclick="downloadSiteFile()">📥 تحميل ملف الموقع (index.html)</button>
+        <button class="btn-export btn-share" onclick="shareSiteFile()">📲 مشاركة أو حفظ في الملفات (Share)</button>
+        <button class="btn-export btn-copy" onclick="copySiteCode()">📋 نسخ كود الموقع كاملاً (HTML)</button>
+        <div id="export-feedback"></div>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div id="toast-box" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:w-80 z-50 pointer-events-none flex flex-col gap-2"></div>
-
-  <!-- =========================================================
-       SINGLE SELF-CONTAINED JAVASCRIPT BLOCK
-  ========================================================= -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      'use strict';
+    // Embedded Media Variables (Preserved during export)
+    let EMBEDDED_PHOTO = "";
+    let EMBEDDED_AUDIO = "";
 
-      var STORAGE_KEY = 'birthday_friend_app_v3';
+    let isPlaying = false;
+    let synthInterval = null;
+    let audioCtx = null;
 
-      var fallbackConfig = {
-        name: 'صاحبي',
-        age: '20',
-        message:
-          'كل سنة وإنت طيب يا أخويا وصاحب عمري! النهاردة مش يوم عادي، ده اليوم اللي اتولد فيه أجدع وأنضف إنسان عرفته في حياتي. ربنا يجعلها سنة خير ونجاح وستر عليك، وتحقق فيها كل أحلامك وتفضل دايماً منور حياتنا بضحكتك وجدعنتك اللي ملهاش زي!',
-        gift: 'خروجة وعزومة على حسابي في المكان اللي تختاره 🍔🎉',
-        memories: [
-          {
-            icon: '😂',
-            title: 'ضحكنا اللي مبيخلصش',
-            desc: 'فاكر لما كنا بنضحك على أتفه الحاجات لدرجة إن الناس كلها كانت بتبصلنا ومش فاهمين في إيه؟'
-          },
-          {
-            icon: '🤝',
-            title: 'مواقف الجدعنة',
-            desc: 'وقت الجد والشدة كنت دايماً أول واحد في ضهري من غير ما أتكلم ولا أطلب.'
-          },
-          {
-            icon: '🌙',
-            title: 'سهرات آخر الليل',
-            desc: 'أحلى كلام وخطط للمستقبل طلعت في قعداتنا وسهرنا للصبح على كوباية شاي.'
-          },
-          {
-            icon: '🚀',
-            title: 'أحلامنا الجاية',
-            desc: 'لسه قدامنا إنجازات وذكريات أكتر بكتير هنحققها سوا بإذن الله يا بطل!'
-          }
-        ],
-        photoDataUrl: '',
-        audioDataUrl: '',
-        audioName: ''
-      };
+    const bgAudio = document.getElementById('bg-audio');
+    const friendPhoto = document.getElementById('friend-photo');
+    const defaultAvatar = document.getElementById('default-avatar');
 
-      /* =========================================================
-         1. LOAD INITIAL STATE SAFELY (#app-config + localStorage)
-      ========================================================= */
-      var state = JSON.parse(JSON.stringify(fallbackConfig));
-
-      try {
-        var configEl = document.getElementById('app-config');
-        if (configEl && configEl.textContent) {
-          var parsedEmbedded = JSON.parse(configEl.textContent);
-          if (parsedEmbedded && typeof parsedEmbedded === 'object') {
-            state = Object.assign({}, state, parsedEmbedded);
-            if (!Array.isArray(state.memories) || state.memories.length < 4) {
-              state.memories = JSON.parse(JSON.stringify(fallbackConfig.memories));
-            }
-          }
-        }
-      } catch (e) {
-        console.warn('Could not parse embedded #app-config:', e);
+    // Initialize embedded media if already saved in exported HTML
+    window.addEventListener('DOMContentLoaded', () => {
+      if (EMBEDDED_PHOTO) {
+        friendPhoto.src = EMBEDDED_PHOTO;
+        friendPhoto.style.display = 'block';
+        defaultAvatar.style.display = 'none';
+        document.getElementById('photo-status').textContent = '✅ الصورة محفوظة ومُدمجة في الموقع';
       }
-
-      try {
-        var savedRaw = window.localStorage.getItem(STORAGE_KEY);
-        if (savedRaw) {
-          var parsedSaved = JSON.parse(savedRaw);
-          if (parsedSaved && typeof parsedSaved === 'object') {
-            state = Object.assign({}, state, parsedSaved);
-            if (!Array.isArray(state.memories) || state.memories.length < 4) {
-              state.memories = JSON.parse(JSON.stringify(fallbackConfig.memories));
-            }
-          }
-        }
-      } catch (e) {
-        console.warn('localStorage unavailable or empty:', e);
+      if (EMBEDDED_AUDIO) {
+        bgAudio.src = EMBEDDED_AUDIO;
+        const preview = document.getElementById('preview-audio');
+        preview.src = EMBEDDED_AUDIO;
+        preview.style.display = 'block';
+        document.getElementById('audio-status').textContent = '✅ الأغنية محفوظة ومُدمجة في الموقع';
       }
-
-      function persistStateToStorage() {
-        try {
-          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-          return true;
-        } catch (e) {
-          try {
-            var lightCopy = Object.assign({}, state, {
-              audioDataUrl: '',
-              photoDataUrl:
-                state.photoDataUrl && state.photoDataUrl.length < 300000
-                  ? state.photoDataUrl
-                  : ''
-            });
-            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lightCopy));
-          } catch (innerErr) {
-            console.warn('Storage write skipped:', innerErr);
-          }
-          return false;
-        }
-      }
-
-      /* =========================================================
-         2. TOAST NOTIFICATION HELPER (NO alert/confirm)
-      ========================================================= */
-      var toastBox = document.getElementById('toast-box');
-
-      function showToast(text, isWarning) {
-        if (!toastBox) return;
-        var item = document.createElement('div');
-        item.className =
-          'pointer-events-auto px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-2xl border backdrop-blur-md transition-all duration-300 ' +
-          (isWarning
-            ? 'bg-slate-900/95 border-cyan-400/50 text-cyan-200'
-            : 'bg-slate-900/95 border-amber-400/60 text-amber-200');
-        item.textContent = text;
-        toastBox.appendChild(item);
-
-        setTimeout(function () {
-          item.style.opacity = '0';
-          item.style.transform = 'translateY(8px)';
-          setTimeout(function () {
-            if (item.parentNode) item.parentNode.removeChild(item);
-          }, 300);
-        }, 3600);
-      }
-
-      /* =========================================================
-         3. CONFETTI PARTICLE ENGINE
-      ========================================================= */
-      var confettiCanvas = document.getElementById('confetti-canvas');
-      var confettiCtx = confettiCanvas ? confettiCanvas.getContext('2d') : null;
-      var confettiParticles = [];
-      var confettiAnimating = false;
-
-      function resizeConfettiCanvas() {
-        if (!confettiCanvas) return;
-        confettiCanvas.width = window.innerWidth;
-        confettiCanvas.height = window.innerHeight;
-      }
-
-      resizeConfettiCanvas();
-      window.addEventListener('resize', resizeConfettiCanvas);
-
-      function launchConfetti(count) {
-        if (!confettiCanvas || !confettiCtx) return;
-        var colors = ['#f59e0b', '#fbbf24', '#8b5cf6', '#06b6d4', '#ec4899', '#10b981'];
-        var total = count || 90;
-
-        for (var i = 0; i < total; i++) {
-          confettiParticles.push({
-            x: Math.random() * confettiCanvas.width,
-            y: -20 - Math.random() * 120,
-            w: 6 + Math.random() * 7,
-            h: 8 + Math.random() * 9,
-            vx: (Math.random() - 0.5) * 5,
-            vy: 2.5 + Math.random() * 4.5,
-            rot: Math.random() * Math.PI * 2,
-            vRot: (Math.random() - 0.5) * 0.16,
-            color: colors[Math.floor(Math.random() * colors.length)]
-          });
-        }
-
-        if (!confettiAnimating) {
-          confettiAnimating = true;
-          requestAnimationFrame(stepConfetti);
-        }
-      }
-
-      function stepConfetti() {
-        if (!confettiCtx || !confettiCanvas) return;
-        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
-        for (var i = confettiParticles.length - 1; i >= 0; i--) {
-          var p = confettiParticles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.04;
-          p.rot += p.vRot;
-
-          confettiCtx.save();
-          confettiCtx.translate(p.x, p.y);
-          confettiCtx.rotate(p.rot);
-          confettiCtx.fillStyle = p.color;
-          confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          confettiCtx.restore();
-
-          if (p.y > confettiCanvas.height + 30) {
-            confettiParticles.splice(i, 1);
-          }
-        }
-
-        if (confettiParticles.length > 0) {
-          requestAnimationFrame(stepConfetti);
-        } else {
-          confettiAnimating = false;
-        }
-      }
-
-      /* =========================================================
-         4. AUDIO ENGINE (UPLOADED SONG + WEB AUDIO HAPPY BIRTHDAY)
-      ========================================================= */
-      var bgMusicEl = document.getElementById('bg-music');
-      var musicToggleBtn = document.getElementById('music-toggle-btn');
-      var isMusicPlaying = false;
-      var audioCtx = null;
-      var synthLoopTimer = null;
-
-      function ensureAudioCtx() {
-        if (!audioCtx) {
-          var Ctx = window.AudioContext || window.webkitAudioContext;
-          if (Ctx) {
-            audioCtx = new Ctx();
-          }
-        }
-        if (audioCtx && audioCtx.state === 'suspended') {
-          audioCtx.resume().catch(function () {});
-        }
-      }
-
-      function playTone(freq, startOffset, duration) {
-        if (!audioCtx) return;
-        var now = audioCtx.currentTime + startOffset;
-        var osc = audioCtx.createOscillator();
-        var gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, now);
-
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.14, now + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + duration + 0.02);
-      }
-
-      function playSynthHappyBirthdayOnce() {
-        ensureAudioCtx();
-        if (!audioCtx) return;
-        // Notes in Hz for Happy Birthday melody
-        var notes = [
-          [261.63, 0.0, 0.32], [261.63, 0.36, 0.32], [293.66, 0.72, 0.65],
-          [261.63, 1.44, 0.65], [349.23, 2.16, 0.65], [329.63, 2.88, 1.2],
-          [261.63, 4.3, 0.32], [261.63, 4.66, 0.32], [293.66, 5.02, 0.65],
-          [261.63, 5.74, 0.65], [392.00, 6.46, 0.65], [349.23, 7.18, 1.2],
-          [261.63, 8.6, 0.32], [261.63, 8.96, 0.32], [523.25, 9.32, 0.65],
-          [440.00, 10.04, 0.65], [349.23, 10.76, 0.65], [329.63, 11.48, 0.65],
-          [293.66, 12.2, 1.1], [466.16, 13.5, 0.32], [466.16, 13.86, 0.32],
-          [440.00, 14.22, 0.65], [349.23, 14.94, 0.65], [392.00, 15.66, 0.65],
-          [349.23, 16.38, 1.3]
-        ];
-        for (var i = 0; i < notes.length; i++) {
-          playTone(notes[i][0], notes[i][1], notes[i][2]);
-        }
-      }
-
-      function stopSynthMelody() {
-        if (synthLoopTimer) {
-          clearInterval(synthLoopTimer);
-          synthLoopTimer = null;
-        }
-      }
-
-      function updateMusicButtonUI() {
-        if (!musicToggleBtn) return;
-        musicToggleBtn.textContent = isMusicPlaying
-          ? '🎵 إيقاف الموسيقى'
-          : '🎵 تشغيل الموسيقى';
-      }
-
-      function startMusic() {
-        stopSynthMelody();
-
-        if (state.audioDataUrl && state.audioDataUrl.indexOf('data:audio') === 0) {
-          if (bgMusicEl.src !== state.audioDataUrl) {
-            bgMusicEl.src = state.audioDataUrl;
-          }
-          var playPromise = bgMusicEl.play();
-          if (playPromise && typeof playPromise.then === 'function') {
-            playPromise
-              .then(function () {
-                isMusicPlaying = true;
-                updateMusicButtonUI();
-              })
-              .catch(function () {
-                // Fallback to built-in synth if custom audio blocked
-                playSynthHappyBirthdayOnce();
-                synthLoopTimer = setInterval(playSynthHappyBirthdayOnce, 18200);
-                isMusicPlaying = true;
-                updateMusicButtonUI();
-              });
-          } else {
-            isMusicPlaying = true;
-            updateMusicButtonUI();
-          }
-        } else {
-          bgMusicEl.pause();
-          playSynthHappyBirthdayOnce();
-          synthLoopTimer = setInterval(playSynthHappyBirthdayOnce, 18200);
-          isMusicPlaying = true;
-          updateMusicButtonUI();
-        }
-      }
-
-      function stopMusic() {
-        stopSynthMelody();
-        if (bgMusicEl) {
-          bgMusicEl.pause();
-        }
-        isMusicPlaying = false;
-        updateMusicButtonUI();
-      }
-
-      if (musicToggleBtn) {
-        musicToggleBtn.addEventListener('click', function () {
-          if (isMusicPlaying) {
-            stopMusic();
-          } else {
-            startMusic();
-          }
-        });
-      }
-
-      /* =========================================================
-         5. TYPEWRITER MESSAGE ENGINE
-      ========================================================= */
-      var messageTextEl = document.getElementById('message-text');
-      var showFullMsgBtn = document.getElementById('show-full-msg-btn');
-      var typeTimer = null;
-
-      function runTypewriter(fullText) {
-        if (!messageTextEl) return;
-        if (typeTimer) {
-          clearInterval(typeTimer);
-          typeTimer = null;
-        }
-        var text = fullText || '';
-        messageTextEl.textContent = '';
-        messageTextEl.classList.add('type-cursor');
-        var idx = 0;
-
-        typeTimer = setInterval(function () {
-          if (idx < text.length) {
-            messageTextEl.textContent += text.charAt(idx);
-            idx++;
-          } else {
-            clearInterval(typeTimer);
-            typeTimer = null;
-            messageTextEl.classList.remove('type-cursor');
-          }
-        }, 28);
-      }
-
-      function showFullMessageNow() {
-        if (!messageTextEl) return;
-        if (typeTimer) {
-          clearInterval(typeTimer);
-          typeTimer = null;
-        }
-        messageTextEl.classList.remove('type-cursor');
-        messageTextEl.textContent = state.message || '';
-      }
-
-      if (showFullMsgBtn) {
-        showFullMsgBtn.addEventListener('click', showFullMessageNow);
-      }
-
-      /* =========================================================
-         6. INTRO GIFT BOX OVERLAY INTERACTION
-      ========================================================= */
-      var introOverlay = document.getElementById('intro-overlay');
-      var giftBoxVisual = document.getElementById('gift-box-visual');
-      var openGiftBtn = document.getElementById('open-gift-btn');
-
-      if (openGiftBtn) {
-        openGiftBtn.addEventListener('click', function () {
-          if (giftBoxVisual) {
-            giftBoxVisual.classList.add('gift-opened');
-          }
-          launchConfetti(130);
-          startMusic();
-
-          setTimeout(function () {
-            if (introOverlay) {
-              introOverlay.classList.add('opacity-0', 'pointer-events-none');
-              setTimeout(function () {
-                introOverlay.classList.add('hidden');
-              }, 650);
-            }
-            runTypewriter(state.message);
-            initScratchCanvas();
-          }, 420);
-        });
-      }
-
-      /* =========================================================
-         7. INTERACTIVE BIRTHDAY CAKE (3 CANDLES)
-      ========================================================= */
-      var candles = document.querySelectorAll('.candle');
-      var blowCandlesBtn = document.getElementById('blow-candles-btn');
-      var relightCandlesBtn = document.getElementById('relight-candles-btn');
-      var wishBanner = document.getElementById('wish-banner');
-      var cakeHint = document.getElementById('cake-hint');
-
-      function checkAllCandlesOut() {
-        var outCount = 0;
-        for (var i = 0; i < candles.length; i++) {
-          if (candles[i].classList.contains('is-out')) outCount++;
-        }
-        if (outCount >= candles.length) {
-          launchConfetti(120);
-          ensureAudioCtx();
-          playTone(523.25, 0, 0.25);
-          playTone(659.25, 0.14, 0.25);
-          playTone(783.99, 0.28, 0.45);
-          if (wishBanner) wishBanner.classList.remove('hidden');
-          if (relightCandlesBtn) relightCandlesBtn.classList.remove('hidden');
-          if (blowCandlesBtn) blowCandlesBtn.classList.add('hidden');
-          if (cakeHint) cakeHint.textContent = 'كل الشموع اتطفت! كل سنة وإنت طيب يا بطل 🥳';
-        }
-      }
-
-      function extinguishCandle(candleEl) {
-        if (!candleEl || candleEl.classList.contains('is-out')) return;
-        candleEl.classList.add('is-out');
-        checkAllCandlesOut();
-      }
-
-      for (var c = 0; c < candles.length; c++) {
-        (function (el) {
-          el.addEventListener('click', function () {
-            extinguishCandle(el);
-          });
-        })(candles[c]);
-      }
-
-      if (blowCandlesBtn) {
-        blowCandlesBtn.addEventListener('click', function () {
-          for (var i = 0; i < candles.length; i++) {
-            (function (idx) {
-              setTimeout(function () {
-                extinguishCandle(candles[idx]);
-              }, idx * 120);
-            })(i);
-          }
-        });
-      }
-
-      if (relightCandlesBtn) {
-        relightCandlesBtn.addEventListener('click', function () {
-          for (var i = 0; i < candles.length; i++) {
-            candles[i].classList.remove('is-out');
-          }
-          if (wishBanner) wishBanner.classList.add('hidden');
-          if (relightCandlesBtn) relightCandlesBtn.classList.add('hidden');
-          if (blowCandlesBtn) blowCandlesBtn.classList.remove('hidden');
-          if (cakeHint) {
-            cakeHint.textContent =
-              'اتمنى أمنية حلوة للسنة الجديدة، والمس أي شمعة أو اضغط على الزرار لإطفائها!';
-          }
-        });
-      }
-
-      /* =========================================================
-         8. INTERACTIVE 3D MEMORY FLIP CARDS
-      ========================================================= */
-      var memoriesGrid = document.getElementById('memories-grid');
-
-      function renderMemoriesGrid() {
-        if (!memoriesGrid) return;
-        memoriesGrid.innerHTML = '';
-
-        for (var i = 0; i < state.memories.length; i++) {
-          var mem = state.memories[i];
-          var card = document.createElement('div');
-          card.className = 'memory-flip-card';
-          card.setAttribute('role', 'button');
-          card.setAttribute('tabindex', '0');
-
-          var inner = document.createElement('div');
-          inner.className = 'memory-flip-inner';
-
-          // Front Face
-          var front = document.createElement('div');
-          front.className = 'memory-face glass-card';
-
-          var badge = document.createElement('span');
-          badge.className = 'px-3 py-0.5 rounded-full bg-white/10 text-amber-300 text-xs font-bold mb-2';
-          badge.textContent = 'ذكرى #' + (i + 1);
-
-          var iconDiv = document.createElement('div');
-          iconDiv.className = 'text-4xl mb-2';
-          iconDiv.textContent = mem.icon || '✨';
-
-          var titleEl = document.createElement('h3');
-          titleEl.className = 'text-lg font-extrabold text-white';
-          titleEl.textContent = mem.title || '';
-
-          var tapHint = document.createElement('span');
-          tapHint.className = 'mt-3 text-xs text-cyan-300 font-bold';
-          tapHint.textContent = 'اضغط لقلب الكارت ↻';
-
-          front.appendChild(badge);
-          front.appendChild(iconDiv);
-          front.appendChild(titleEl);
-          front.appendChild(tapHint);
-
-          // Back Face
-          var back = document.createElement('div');
-          back.className = 'memory-face memory-back shadow-xl';
-
-          var backTitle = document.createElement('h4');
-          backTitle.className = 'text-base font-extrabold text-amber-300 mb-2';
-          backTitle.textContent = mem.title || '';
-
-          var descEl = document.createElement('p');
-          descEl.className = 'text-slate-100 text-sm leading-relaxed';
-          descEl.textContent = mem.desc || '';
-
-          back.appendChild(backTitle);
-          back.appendChild(descEl);
-
-          inner.appendChild(front);
-          inner.appendChild(back);
-          card.appendChild(inner);
-
-          (function (cardEl) {
-            cardEl.addEventListener('click', function () {
-              cardEl.classList.toggle('flipped');
-            });
-          })(card);
-
-          memoriesGrid.appendChild(card);
-        }
-      }
-
-      /* =========================================================
-         9. HTML5 CANVAS SCRATCH-OFF GIFT CARD
-      ========================================================= */
-      var scratchCanvas = document.getElementById('scratch-canvas');
-      var scratchCtx = scratchCanvas ? scratchCanvas.getContext('2d') : null;
-      var revealGiftBtn = document.getElementById('reveal-gift-btn');
-      var resetScratchBtn = document.getElementById('reset-scratch-btn');
-      var isDrawingScratch = false;
-      var isGiftRevealed = false;
-      var lastPt = null;
-
-      function initScratchCanvas() {
-        if (!scratchCanvas || !scratchCtx) return;
-        var parent = scratchCanvas.parentElement;
-        var w = (parent && parent.clientWidth) || 340;
-        var h = (parent && parent.clientHeight) || 180;
-
-        scratchCanvas.width = w;
-        scratchCanvas.height = h;
-        scratchCanvas.classList.remove('opacity-0', 'pointer-events-none');
-        isGiftRevealed = false;
-        if (resetScratchBtn) resetScratchBtn.classList.add('hidden');
-
-        var grad = scratchCtx.createLinearGradient(0, 0, w, h);
-        grad.addColorStop(0, '#d97706');
-        grad.addColorStop(0.5, '#fbbf24');
-        grad.addColorStop(1, '#b45309');
-
-        scratchCtx.globalCompositeOperation = 'source-over';
-        scratchCtx.fillStyle = grad;
-        scratchCtx.fillRect(0, 0, w, h);
-
-        scratchCtx.fillStyle = '#0f172a';
-        scratchCtx.font = '900 20px Cairo, sans-serif';
-        scratchCtx.textAlign = 'center';
-        scratchCtx.textBaseline = 'middle';
-        scratchCtx.fillText('اخربش هنا واكشف هديتك 🪙', w / 2, h / 2 - 8);
-
-        scratchCtx.font = '700 13px Cairo, sans-serif';
-        scratchCtx.fillText('اسحب صباعك فوق الطبقة الذهبية', w / 2, h / 2 + 20);
-      }
-
-      function revealGiftCompletely() {
-        if (isGiftRevealed) return;
-        isGiftRevealed = true;
-        if (scratchCanvas) {
-          scratchCanvas.classList.add('opacity-0', 'pointer-events-none');
-        }
-        if (resetScratchBtn) {
-          resetScratchBtn.classList.remove('hidden');
-        }
-        launchConfetti(100);
-        showToast('🎉 مبروك! هديتك الرسمية ظهرت بالكامل');
-      }
-
-      function getScratchPos(evt) {
-        var rect = scratchCanvas.getBoundingClientRect();
-        var clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
-        var clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
-        return {
-          x: clientX - rect.left,
-          y: clientY - rect.top
-        };
-      }
-
-      function scratchStroke(pt) {
-        if (!scratchCtx || isGiftRevealed) return;
-        scratchCtx.globalCompositeOperation = 'destination-out';
-        scratchCtx.lineCap = 'round';
-        scratchCtx.lineJoin = 'round';
-        scratchCtx.lineWidth = 40;
-        scratchCtx.beginPath();
-        if (lastPt) {
-          scratchCtx.moveTo(lastPt.x, lastPt.y);
-        } else {
-          scratchCtx.moveTo(pt.x, pt.y);
-        }
-        scratchCtx.lineTo(pt.x, pt.y);
-        scratchCtx.stroke();
-        lastPt = pt;
-      }
-
-      function evaluateScratchProgress() {
-        if (!scratchCtx || !scratchCanvas || isGiftRevealed) return;
-        try {
-          var imgData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
-          var data = imgData.data;
-          var cleared = 0;
-          var sampled = 0;
-          for (var i = 3; i < data.length; i += 20) {
-            sampled++;
-            if (data[i] === 0) cleared++;
-          }
-          if (sampled > 0 && cleared / sampled > 0.45) {
-            revealGiftCompletely();
-          }
-        } catch (e) {}
-      }
-
-      if (scratchCanvas) {
-        scratchCanvas.addEventListener('mousedown', function (e) {
-          isDrawingScratch = true;
-          lastPt = getScratchPos(e);
-          scratchStroke(lastPt);
-        });
-
-        window.addEventListener('mousemove', function (e) {
-          if (!isDrawingScratch) return;
-          scratchStroke(getScratchPos(e));
-        });
-
-        window.addEventListener('mouseup', function () {
-          if (isDrawingScratch) {
-            isDrawingScratch = false;
-            lastPt = null;
-            evaluateScratchProgress();
-          }
-        });
-
-        scratchCanvas.addEventListener(
-          'touchstart',
-          function (e) {
-            e.preventDefault();
-            isDrawingScratch = true;
-            lastPt = getScratchPos(e);
-            scratchStroke(lastPt);
-          },
-          { passive: false }
-        );
-
-        scratchCanvas.addEventListener(
-          'touchmove',
-          function (e) {
-            if (!isDrawingScratch) return;
-            e.preventDefault();
-            scratchStroke(getScratchPos(e));
-          },
-          { passive: false }
-        );
-
-        scratchCanvas.addEventListener('touchend', function () {
-          if (isDrawingScratch) {
-            isDrawingScratch = false;
-            lastPt = null;
-            evaluateScratchProgress();
-          }
-        });
-      }
-
-      if (revealGiftBtn) {
-        revealGiftBtn.addEventListener('click', revealGiftCompletely);
-      }
-
-      if (resetScratchBtn) {
-        resetScratchBtn.addEventListener('click', initScratchCanvas);
-      }
-
-      /* =========================================================
-         10. UI RENDERING & SETTINGS MODAL CONTROLS
-      ========================================================= */
-      var introFriendNameEl = document.getElementById('intro-friend-name');
-      var heroNameEl = document.getElementById('hero-name');
-      var footerNameEl = document.getElementById('footer-name');
-      var heroAgeBadgeWrap = document.getElementById('hero-age-badge-wrap');
-      var heroAgeTextEl = document.getElementById('hero-age-text');
-      var giftPrizeTextEl = document.getElementById('gift-prize-text');
-      var heroPhotoEl = document.getElementById('hero-photo');
-      var heroPlaceholderEl = document.getElementById('hero-placeholder');
-
-      var settingsModal = document.getElementById('settings-modal');
-      var openSettingsBtn = document.getElementById('open-settings-btn');
-      var heroPhotoTrigger = document.getElementById('hero-photo-trigger');
-      var closeSettingsBtn = document.getElementById('close-settings-btn');
-
-      var inputName = document.getElementById('input-name');
-      var inputAge = document.getElementById('input-age');
-      var inputMessage = document.getElementById('input-message');
-      var inputGift = document.getElementById('input-gift');
-      var memoriesEditor = document.getElementById('memories-editor');
-
-      var photoFileInput = document.getElementById('photo-file-input');
-      var settingsPhotoPreview = document.getElementById('settings-photo-preview');
-      var settingsPhotoIcon = document.getElementById('settings-photo-icon');
-      var removePhotoBtn = document.getElementById('remove-photo-btn');
-
-      var audioFileInput = document.getElementById('audio-file-input');
-      var settingsAudioLabel = document.getElementById('settings-audio-label');
-      var settingsAudioPreview = document.getElementById('settings-audio-preview');
-      var removeAudioBtn = document.getElementById('remove-audio-btn');
-
-      function applyStateToUI(immediateMessage) {
-        var displayName = (state.name || '').trim() || 'صاحبي';
-        if (introFriendNameEl) introFriendNameEl.textContent = displayName;
-        if (heroNameEl) heroNameEl.textContent = displayName;
-        if (footerNameEl) footerNameEl.textContent = displayName;
-        document.title = 'كل سنة وإنت طيب يا ' + displayName + ' 🎉';
-
-        // Age Badge
-        var ageVal = (state.age || '').trim();
-        if (ageVal) {
-          if (heroAgeBadgeWrap) heroAgeBadgeWrap.classList.remove('hidden');
-          if (heroAgeTextEl) {
-            heroAgeTextEl.textContent = /^\d+$/.test(ageVal)
-              ? ageVal + ' سنة من الجدعنة والضحك'
-              : ageVal;
-          }
-        } else if (heroAgeBadgeWrap) {
-          heroAgeBadgeWrap.classList.add('hidden');
-        }
-
-        // Photo Frame & Settings Thumbnail
-        if (state.photoDataUrl && state.photoDataUrl.indexOf('data:image') === 0) {
-          if (heroPhotoEl) {
-            heroPhotoEl.src = state.photoDataUrl;
-            heroPhotoEl.classList.remove('hidden');
-          }
-          if (heroPlaceholderEl) heroPlaceholderEl.classList.add('hidden');
-
-          if (settingsPhotoPreview) {
-            settingsPhotoPreview.src = state.photoDataUrl;
-            settingsPhotoPreview.classList.remove('hidden');
-          }
-          if (settingsPhotoIcon) settingsPhotoIcon.classList.add('hidden');
-          if (removePhotoBtn) removePhotoBtn.classList.remove('hidden');
-        } else {
-          if (heroPhotoEl) {
-            heroPhotoEl.classList.add('hidden');
-            heroPhotoEl.removeAttribute('src');
-          }
-          if (heroPlaceholderEl) heroPlaceholderEl.classList.remove('hidden');
-
-          if (settingsPhotoPreview) {
-            settingsPhotoPreview.classList.add('hidden');
-            settingsPhotoPreview.removeAttribute('src');
-          }
-          if (settingsPhotoIcon) settingsPhotoIcon.classList.remove('hidden');
-          if (removePhotoBtn) removePhotoBtn.classList.add('hidden');
-        }
-
-        // Song Preview & Label
-        if (state.audioDataUrl && state.audioDataUrl.indexOf('data:audio') === 0) {
-          if (settingsAudioLabel) {
-            settingsAudioLabel.textContent =
-              '🎵 الأغنية: ' + (state.audioName || 'أغنية عيد الميلاد');
-          }
-          if (settingsAudioPreview) {
-            if (settingsAudioPreview.src !== state.audioDataUrl) {
-              settingsAudioPreview.src = state.audioDataUrl;
-            }
-            settingsAudioPreview.classList.remove('hidden');
-          }
-          if (removeAudioBtn) removeAudioBtn.classList.remove('hidden');
-        } else {
-          if (settingsAudioLabel) {
-            settingsAudioLabel.textContent = '🎵 الأغنية الحالية: اللحن الافتراضي المدمج';
-          }
-          if (settingsAudioPreview) {
-            settingsAudioPreview.pause();
-            settingsAudioPreview.classList.add('hidden');
-            settingsAudioPreview.removeAttribute('src');
-          }
-          if (removeAudioBtn) removeAudioBtn.classList.add('hidden');
-        }
-
-        // Gift Text
-        if (giftPrizeTextEl) {
-          giftPrizeTextEl.textContent = (state.gift || '').trim() || fallbackConfig.gift;
-        }
-
-        // Message Text
-        if (immediateMessage) {
-          showFullMessageNow();
-        } else if (messageTextEl && !typeTimer) {
-          messageTextEl.textContent = state.message || '';
-        }
-
-        renderMemoriesGrid();
-      }
-
-      function populateSettingsForm() {
-        if (inputName) inputName.value = state.name || '';
-        if (inputAge) inputAge.value = state.age || '';
-        if (inputMessage) inputMessage.value = state.message || '';
-        if (inputGift) inputGift.value = state.gift || '';
-
-        if (!memoriesEditor) return;
-        memoriesEditor.innerHTML = '';
-
-        for (var i = 0; i < state.memories.length; i++) {
-          var mem = state.memories[i];
-          var wrap = document.createElement('div');
-          wrap.className = 'p-3 rounded-xl bg-slate-900 border border-white/10 space-y-2';
-
-          var row = document.createElement('div');
-          row.className = 'flex items-center gap-2';
-
-          var iconIn = document.createElement('input');
-          iconIn.type = 'text';
-          iconIn.value = mem.icon || '';
-          iconIn.setAttribute('data-mem-idx', String(i));
-          iconIn.setAttribute('data-mem-key', 'icon');
-          iconIn.className = 'w-12 px-2 py-1.5 rounded-lg bg-slate-950 border border-white/15 text-center text-sm';
-
-          var titleIn = document.createElement('input');
-          titleIn.type = 'text';
-          titleIn.value = mem.title || '';
-          titleIn.setAttribute('data-mem-idx', String(i));
-          titleIn.setAttribute('data-mem-key', 'title');
-          titleIn.className = 'flex-1 px-3 py-1.5 rounded-lg bg-slate-950 border border-white/15 text-white text-xs font-bold';
-
-          var descIn = document.createElement('textarea');
-          descIn.rows = 2;
-          descIn.value = mem.desc || '';
-          descIn.setAttribute('data-mem-idx', String(i));
-          descIn.setAttribute('data-mem-key', 'desc');
-          descIn.className = 'w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-white/15 text-slate-200 text-xs';
-
-          row.appendChild(iconIn);
-          row.appendChild(titleIn);
-          wrap.appendChild(row);
-          wrap.appendChild(descIn);
-          memoriesEditor.appendChild(wrap);
-        }
-      }
-
-      function openSettingsModal() {
-        populateSettingsForm();
-        applyStateToUI(false);
-        if (settingsModal) {
-          settingsModal.classList.remove('hidden');
-        }
-      }
-
-      function closeSettingsModal() {
-        if (settingsModal) {
-          settingsModal.classList.add('hidden');
-        }
-      }
-
-      if (openSettingsBtn) openSettingsBtn.addEventListener('click', openSettingsModal);
-      if (heroPhotoTrigger) heroPhotoTrigger.addEventListener('click', openSettingsModal);
-      if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettingsModal);
-
-      if (settingsModal) {
-        settingsModal.addEventListener('click', function (e) {
-          if (e.target === settingsModal) {
-            closeSettingsModal();
-          }
-        });
-      }
-
-      /* =========================================================
-         11. PHOTO COMPRESSION & AUDIO UPLOAD HANDLERS
-      ========================================================= */
-      if (photoFileInput) {
-        photoFileInput.addEventListener('change', function (e) {
-          var file = e.target.files && e.target.files[0];
-          if (!file) return;
-
-          var reader = new FileReader();
-          reader.onload = function (ev) {
-            var img = new Image();
-            img.onload = function () {
-              var MAX_W = 600;
-              var w = img.width;
-              var h = img.height;
-              if (w > MAX_W) {
-                h = Math.round((h * MAX_W) / w);
-                w = MAX_W;
-              }
-              var canvas = document.createElement('canvas');
-              canvas.width = w;
-              canvas.height = h;
-              var ctx = canvas.getContext('2d');
-              ctx.drawImage(img, 0, 0, w, h);
-
-              state.photoDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-              persistStateToStorage();
-              applyStateToUI(false);
-              showToast('تم رفع صورة صاحبك بنجاح! 📸✨');
-            };
-            img.onerror = function () {
-              showToast('تعذر قراءة الصورة، جرب صورة تانية', true);
-            };
-            img.src = ev.target.result;
-          };
-          reader.readAsDataURL(file);
-          photoFileInput.value = '';
-        });
-      }
-
-      if (removePhotoBtn) {
-        removePhotoBtn.addEventListener('click', function () {
-          state.photoDataUrl = '';
-          persistStateToStorage();
-          applyStateToUI(false);
-          showToast('تم حذف الصورة', true);
-        });
-      }
-
-      if (audioFileInput) {
-        audioFileInput.addEventListener('change', function (e) {
-          var file = e.target.files && e.target.files[0];
-          if (!file) return;
-
-          var reader = new FileReader();
-          reader.onload = function (ev) {
-            state.audioDataUrl = ev.target.result;
-            state.audioName = file.name.replace(/\.[^/.]+$/, '');
-            persistStateToStorage();
-            applyStateToUI(false);
-
-            if (isMusicPlaying) {
-              startMusic();
-            }
-            showToast('تم إضافة الأغنية "' + state.audioName + '" بنجاح! 🎵🔥');
-          };
-          reader.onerror = function () {
-            showToast('تعذر قراءة ملف الأغنية، جرب صيغة MP3 أو M4A', true);
-          };
-          reader.readAsDataURL(file);
-          audioFileInput.value = '';
-        });
-      }
-
-      if (removeAudioBtn) {
-        removeAudioBtn.addEventListener('click', function () {
-          state.audioDataUrl = '';
-          state.audioName = '';
-          persistStateToStorage();
-          applyStateToUI(false);
-          if (isMusicPlaying) {
-            startMusic();
-          }
-          showToast('تمت إزالة الأغنية والعودة للحن الافتراضي 🎹', true);
-        });
-      }
-
-      /* =========================================================
-         12. SAVE PREVIEW & THREE GUARANTEED EXPORT OPTIONS
-      ========================================================= */
-      var savePreviewBtn = document.getElementById('save-preview-btn');
-      var exportDownloadBtn = document.getElementById('export-download-btn');
-      var exportShareBtn = document.getElementById('export-share-btn');
-      var exportCopyBtn = document.getElementById('export-copy-btn');
-      var exportCodeBox = document.getElementById('export-code-box');
-      var exportCodeTextarea = document.getElementById('export-code-textarea');
-
-      function syncFormToState() {
-        if (inputName) state.name = inputName.value;
-        if (inputAge) state.age = inputAge.value;
-        if (inputMessage) state.message = inputMessage.value;
-        if (inputGift) state.gift = inputGift.value;
-
-        if (memoriesEditor) {
-          var fields = memoriesEditor.querySelectorAll('input, textarea');
-          for (var i = 0; i < fields.length; i++) {
-            var idx = Number(fields[i].getAttribute('data-mem-idx'));
-            var key = fields[i].getAttribute('data-mem-key');
-            if (!isNaN(idx) && key && state.memories[idx]) {
-              state.memories[idx][key] = fields[i].value;
-            }
-          }
-        }
-      }
-
-      if (savePreviewBtn) {
-        savePreviewBtn.addEventListener('click', function () {
-          syncFormToState();
-          var savedFull = persistStateToStorage();
-          applyStateToUI(true);
-          if (savedFull) {
-            showToast('تم حفظ التعديلات في المعاينة بنجاح! ✅✨');
-          } else {
-            showToast(
-              'تم تحديث المعاينة! (الأغنية كبيرة على ذاكرة المتصفح المؤقتة، استخدم أزرار التصدير بالأسفل لحفظها في الملف) 📲',
-              true
-            );
-          }
-        });
-      }
-
-      function buildStandaloneHTML() {
-        syncFormToState();
-        applyStateToUI(true);
-
-        var cloneDoc = document.documentElement.cloneNode(true);
-
-        // 1. Update #app-config JSON safely (escaping '</' to '<\/')
-        var clonedConfigScript = cloneDoc.querySelector('#app-config');
-        if (clonedConfigScript) {
-          var safeJson = JSON.stringify(state).replace(/<\//g, '<\\/');
-          clonedConfigScript.textContent = safeJson;
-        }
-
-        // 2. Reset intro overlay so recipient sees the gift box surprise first
-        var clonedIntro = cloneDoc.querySelector('#intro-overlay');
-        if (clonedIntro) {
-          clonedIntro.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
-        }
-
-        var clonedGiftBox = cloneDoc.querySelector('#gift-box-visual');
-        if (clonedGiftBox) {
-          clonedGiftBox.classList.remove('gift-opened');
-        }
-
-        // 3. Ensure settings modal & export code box are closed/clean in exported file
-        var clonedModal = cloneDoc.querySelector('#settings-modal');
-        if (clonedModal) {
-          clonedModal.classList.add('hidden');
-        }
-
-        var clonedCodeBox = cloneDoc.querySelector('#export-code-box');
-        if (clonedCodeBox) {
-          clonedCodeBox.classList.add('hidden');
-        }
-
-        var clonedCodeTextarea = cloneDoc.querySelector('#export-code-textarea');
-        if (clonedCodeTextarea) {
-          clonedCodeTextarea.textContent = '';
-          clonedCodeTextarea.value = '';
-        }
-
-        var clonedToastBox = cloneDoc.querySelector('#toast-box');
-        if (clonedToastBox) {
-          clonedToastBox.innerHTML = '';
-        }
-
-        // 4. Reset candles & wish banner
-        var clonedCandles = cloneDoc.querySelectorAll('.candle');
-        for (var i = 0; i < clonedCandles.length; i++) {
-          clonedCandles[i].classList.remove('is-out');
-        }
-        var clonedWish = cloneDoc.querySelector('#wish-banner');
-        if (clonedWish) clonedWish.classList.add('hidden');
-
-        return '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
-      }
-
-      // Option A: Direct HTML File Download
-      if (exportDownloadBtn) {
-        exportDownloadBtn.addEventListener('click', function () {
-          try {
-            var htmlStr = buildStandaloneHTML();
-            var blob = new Blob([htmlStr], { type: 'text/html;charset=utf-8' });
-            var url = URL.createObjectURL(blob);
-
-            var link = document.createElement('a');
-            link.href = url;
-            link.download = 'birthday_friend.html';
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            setTimeout(function () {
-              URL.revokeObjectURL(url);
-            }, 60000);
-
-            showToast('جاري تحميل birthday_friend.html.. لو المعاينة منعت التحميل جرب زرار Share بالأسفل 📥');
-          } catch (err) {
-            showToast('تعذر التحميل المباشر هنا، جرب زرار Share أو نسخ الكود بالأسفل 📲', true);
-          }
-        });
-      }
-
-      // Option B: Native Mobile Share / Save to Files
-      if (exportShareBtn) {
-        exportShareBtn.addEventListener('click', function () {
-          try {
-            var htmlStr = buildStandaloneHTML();
-            var blob = new Blob([htmlStr], { type: 'text/html' });
-            var file = new File([blob], 'birthday_friend.html', { type: 'text/html' });
-
-            if (navigator.share) {
-              var shareData = {
-                files: [file],
-                title: 'موقع عيد ميلاد ' + (state.name || 'صاحبي') + ' 🎉',
-                text: 'ملف موقع عيد الميلاد جاهز للفتح أو الرفع أونلاين!'
-              };
-
-              if (navigator.canShare && !navigator.canShare({ files: [file] })) {
-                navigator
-                  .share({
-                    title: shareData.title,
-                    text: shareData.text + '\n\n' + htmlStr.slice(0, 500) + '...'
-                  })
-                  .catch(function () {});
-                showToast('تم فتح قائمة المشاركة! يمكنك أيضاً استخدام زرار نسخ الكود بالأسفل 📋', true);
-                return;
-              }
-
-              navigator
-                .share(shareData)
-                .then(function () {
-                  showToast('تمت المشاركة / الحفظ في الملفات بنجاح! 📲✨');
-                })
-                .catch(function (err) {
-                  if (err && err.name !== 'AbortError') {
-                    showToast('تعذرت مشاركة الملف هنا، استخدم زرار "📋 نسخ كود الموقع كاملاً" بالأسفل', true);
-                  }
-                });
-            } else {
-              showToast('ميزة Share غير مدعومة في هذا المتصفح، استخدم "📥 تحميل ملف الموقع" أو "📋 نسخ الكود"', true);
-            }
-          } catch (err) {
-            showToast('جرب زرار "📋 نسخ كود الموقع كاملاً" بالأسفل', true);
-          }
-        });
-      }
-
-      // Option C: Copy Full Standalone HTML Code + Visible Textarea
-      if (exportCopyBtn) {
-        exportCopyBtn.addEventListener('click', function () {
-          var htmlStr = buildStandaloneHTML();
-
-          if (exportCodeBox && exportCodeTextarea) {
-            exportCodeBox.classList.remove('hidden');
-            exportCodeTextarea.value = htmlStr;
-            exportCodeTextarea.focus();
-            exportCodeTextarea.select();
-          }
-
-          var copied = false;
-          try {
-            copied = document.execCommand('copy');
-          } catch (e) {
-            copied = false;
-          }
-
-          if (!copied && navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard
-              .writeText(htmlStr)
-              .then(function () {
-                showToast('تم نسخ كود الموقع كاملاً (شامل الصورة والأغنية)! الصقه في ملف HTML وارفع فوراً 📋🎉');
-              })
-              .catch(function () {
-                showToast('الكود ظهر في المربع بالأسفل، حدده واعمل نسخ 📋', true);
-              });
-          } else if (copied) {
-            showToast('تم نسخ كود الموقع كاملاً (شامل الصورة والأغنية)! الصقه في ملف HTML وارفع فوراً 📋🎉');
-          } else {
-            showToast('الكود ظهر في المربع بالأسفل، اضغط مطولاً واعمل نسخ 📋', true);
-          }
-        });
-      }
-
-      /* =========================================================
-         13. INITIALIZE PAGE ON LOAD
-      ========================================================= */
-      applyStateToUI(false);
-      initScratchCanvas();
-
-      window.addEventListener('resize', function () {
-        if (!isGiftRevealed) {
-          initScratchCanvas();
-        }
-      });
+      initScratchCard();
     });
+
+    // Open Intro Surprise
+    function openSurprise() {
+      const stage = document.getElementById('gift-stage');
+      stage.classList.add('opened');
+      launchConfetti(140);
+      startMusic();
+      setTimeout(() => {
+        document.getElementById('intro-overlay').classList.add('hidden');
+      }, 650);
+    }
+
+    // Music Controller (Custom Audio or Built-in Happy Birthday Melody)
+    function startMusic() {
+      if (isPlaying) return;
+      isPlaying = true;
+      updateMusicUI(true);
+
+      if (EMBEDDED_AUDIO || bgAudio.src) {
+        bgAudio.play().catch(() => {
+          playBuiltInMelody();
+        });
+      } else {
+        playBuiltInMelody();
+      }
+    }
+
+    function stopMusic() {
+      isPlaying = false;
+      updateMusicUI(false);
+      bgAudio.pause();
+      if (synthInterval) {
+        clearTimeout(synthInterval);
+        synthInterval = null;
+      }
+    }
+
+    function toggleMusic() {
+      if (isPlaying) {
+        stopMusic();
+      } else {
+        startMusic();
+      }
+    }
+
+    function updateMusicUI(playing) {
+      document.getElementById('music-icon').textContent = playing ? '🔊' : '🔇';
+      document.getElementById('music-label').textContent = playing ? 'إيقاف الصوت' : 'تشغيل الأغنية';
+    }
+
+    function playBuiltInMelody() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const notes = [
+          [261.63, 0.35], [261.63, 0.35], [293.66, 0.7], [261.63, 0.7], [349.23, 0.7], [329.63, 1.2],
+          [261.63, 0.35], [261.63, 0.35], [293.66, 0.7], [261.63, 0.7], [392.00, 0.7], [349.23, 1.2],
+          [261.63, 0.35], [261.63, 0.35], [523.25, 0.7], [440.00, 0.7], [349.23, 0.7], [329.63, 0.7], [293.66, 1.1],
+          [466.16, 0.35], [466.16, 0.35], [440.00, 0.7], [349.23, 0.7], [392.00, 0.7], [349.23, 1.3]
+        ];
+
+        let idx = 0;
+        function step() {
+          if (!isPlaying || EMBEDDED_AUDIO) return;
+          const [freq, dur] = notes[idx];
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + dur);
+
+          idx = (idx + 1) % notes.length;
+          synthInterval = setTimeout(step, dur * 650);
+        }
+        step();
+      } catch (e) {}
+    }
+
+    // Cake Candles
+    function blowCandle(el) {
+      if (!el.classList.contains('blown')) {
+        el.classList.add('blown');
+        checkAllCandles();
+      }
+    }
+
+    function blowAllCandles() {
+      document.querySelectorAll('.candle').forEach(c => c.classList.add('blown'));
+      checkAllCandles();
+    }
+
+    function checkAllCandles() {
+      const remaining = document.querySelectorAll('.candle:not(.blown)').length;
+      const status = document.getElementById('wish-status');
+      if (remaining === 0) {
+        status.textContent = '🎉 يا رب كل أمنياتك تتحقق السنة دي يا صاحبي!';
+        launchConfetti(110);
+      } else {
+        status.textContent = `فاضل ${remaining} شمعة.. كمّل!`;
+      }
+    }
+
+    // Scratch Card
+    function initScratchCard() {
+      const canvas = document.getElementById('scratch-canvas');
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width || 340;
+      canvas.height = rect.height || 150;
+
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, '#94a3b8');
+      grad.addColorStop(0.5, '#cbd5e1');
+      grad.addColorStop(1, '#64748b');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 18px Cairo, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('✨ اخربش هنا بصابعك ✨', canvas.width / 2, canvas.height / 2 + 6);
+
+      let drawing = false;
+      function scratch(x, y) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function getPos(e) {
+        const r = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - r.left, y: clientY - r.top };
+      }
+
+      canvas.addEventListener('mousedown', (e) => { drawing = true; const p = getPos(e); scratch(p.x, p.y); });
+      canvas.addEventListener('mousemove', (e) => { if (drawing) { const p = getPos(e); scratch(p.x, p.y); } });
+      window.addEventListener('mouseup', () => { drawing = false; });
+
+      canvas.addEventListener('touchstart', (e) => { drawing = true; const p = getPos(e); scratch(p.x, p.y); }, { passive: true });
+      canvas.addEventListener('touchmove', (e) => { if (drawing) { const p = getPos(e); scratch(p.x, p.y); } }, { passive: true });
+      canvas.addEventListener('touchend', () => { drawing = false; });
+    }
+
+    // Settings Modal
+    function openSettings() {
+      document.getElementById('settings-modal').classList.add('active');
+    }
+
+    function closeSettings() {
+      document.getElementById('settings-modal').classList.remove('active');
+    }
+
+    function applyLiveChanges() {
+      document.getElementById('display-title').textContent = document.getElementById('input-title').value;
+      document.getElementById('display-badge').textContent = document.getElementById('input-badge').value;
+      document.getElementById('display-message').textContent = document.getElementById('input-message').value;
+      document.getElementById('display-prize').textContent = document.getElementById('input-prize').value;
+    }
+
+    // Photo Upload with Automatic Compression
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const status = document.getElementById('photo-status');
+      status.textContent = '⏳ جاري تجهيز وضغط الصورة...';
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 650;
+          let w = img.width;
+          let h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+            else { w = Math.round((w * maxDim) / h); h = maxDim; }
+          }
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          EMBEDDED_PHOTO = canvas.toDataURL('image/jpeg', 0.82);
+
+          friendPhoto.src = EMBEDDED_PHOTO;
+          friendPhoto.style.display = 'block';
+          defaultAvatar.style.display = 'none';
+          status.textContent = '✅ تم إضافة الصورة بنجاح!';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Audio Upload
+    function handleAudioUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const status = document.getElementById('audio-status');
+      status.textContent = '⏳ جاري تحميل الأغنية...';
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        EMBEDDED_AUDIO = e.target.result;
+        bgAudio.src = EMBEDDED_AUDIO;
+
+        const preview = document.getElementById('preview-audio');
+        preview.src = EMBEDDED_AUDIO;
+        preview.style.display = 'block';
+        status.textContent = `✅ تم اختيار: ${file.name}`;
+
+        if (isPlaying) {
+          if (synthInterval) clearTimeout(synthInterval);
+          bgAudio.play().catch(() => {});
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Build Complete Standalone HTML for Export
+    function generateStandaloneHTML() {
+      applyLiveChanges();
+      const clone = document.documentElement.cloneNode(true);
+
+      // Reset modal & overlay state in exported copy
+      const modal = clone.querySelector('#settings-modal');
+      if (modal) modal.classList.remove('active');
+      const overlay = clone.querySelector('#intro-overlay');
+      if (overlay) overlay.classList.remove('hidden');
+      const stage = clone.querySelector('#gift-stage');
+      if (stage) stage.classList.remove('opened');
+      clone.querySelectorAll('.candle').forEach(c => c.classList.remove('blown'));
+      const wish = clone.querySelector('#wish-status');
+      if (wish) wish.textContent = '';
+
+      // Inject current form values into HTML attributes
+      clone.querySelector('#input-title').setAttribute('value', document.getElementById('input-title').value);
+      clone.querySelector('#input-badge').setAttribute('value', document.getElementById('input-badge').value);
+      clone.querySelector('#input-prize').setAttribute('value', document.getElementById('input-prize').value);
+      clone.querySelector('#input-message').textContent = document.getElementById('input-message').value;
+
+      let htmlString = '<!DOCTYPE html>\n' + clone.outerHTML;
+      htmlString = htmlString.replace(/let EMBEDDED_PHOTO = ".*?";/, `let EMBEDDED_PHOTO = ${JSON.stringify(EMBEDDED_PHOTO)};`);
+      htmlString = htmlString.replace(/let EMBEDDED_AUDIO = ".*?";/, `let EMBEDDED_AUDIO = ${JSON.stringify(EMBEDDED_AUDIO)};`);
+      return htmlString;
+    }
+
+    function downloadSiteFile() {
+      const feedback = document.getElementById('export-feedback');
+      try {
+        const html = generateStandaloneHTML();
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';
+        document.body.appendChild(a);
+        a.click();
+        feedback.textContent = '✅ تم بدء تحميل ملف index.html على جهازك!';
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 15000);
+      } catch (err) {
+        feedback.textContent = '⚠️ جرب زر المشاركة أو نسخ الكود بالأسفل.';
+      }
+    }
+
+    async function shareSiteFile() {
+      const feedback = document.getElementById('export-feedback');
+      try {
+        const html = generateStandaloneHTML();
+        const file = new File([html], 'index.html', { type: 'text/html' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'موقع عيد ميلاد صاحبي',
+            text: 'ملف الموقع جاهز للرفع'
+          });
+          feedback.textContent = '✅ تمت المشاركة / الحفظ بنجاح!';
+        } else {
+          downloadSiteFile();
+        }
+      } catch (err) {
+        feedback.textContent = 'ℹ️ تم إلغاء المشاركة أو المتصفح لا يدعمها.';
+      }
+    }
+
+    async function copySiteCode() {
+      const feedback = document.getElementById('export-feedback');
+      try {
+        const html = generateStandaloneHTML();
+        await navigator.clipboard.writeText(html);
+        feedback.textContent = '✅ تم نسخ كود الموقع كاملاً! الصقه في index.html على GitHub';
+      } catch (err) {
+        const html = generateStandaloneHTML();
+        const ta = document.createElement('textarea');
+        ta.value = html;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        feedback.textContent = '✅ تم نسخ الكود بنجاح!';
+      }
+    }
+
+    // Confetti Effect
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const cCtx = confettiCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function launchConfetti(count = 80) {
+      const colors = ['#f59e0b', '#fb7185', '#38bdf8', '#34d399', '#fcd34d', '#a78bfa'];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: -20 - Math.random() * 120,
+          w: 7 + Math.random() * 7,
+          h: 10 + Math.random() * 8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4,
+          vy: 2.5 + Math.random() * 4.5,
+          rot: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 10
+        });
+      }
+      if (particles.length <= count) animateConfetti();
+    }
+
+    function animateConfetti() {
+      cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      particles.forEach((p, idx) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vRot;
+        cCtx.save();
+        cCtx.translate(p.x, p.y);
+        cCtx.rotate((p.rot * Math.PI) / 180);
+        cCtx.fillStyle = p.color;
+        cCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        cCtx.restore();
+        if (p.y > confettiCanvas.height + 30) particles.splice(idx, 1);
+      });
+      if (particles.length > 0) requestAnimationFrame(animateConfetti);
+    }
   </script>
 </body>
-  </html>
+</html>
